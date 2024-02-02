@@ -1,6 +1,6 @@
 let score = 0;
 
-window.onload = () =>
+const init = () =>
 {
  let scoreOutput = document.querySelector("#score");
  document.querySelector("#score-button").onclick = () =>{
@@ -9,3 +9,4 @@ window.onload = () =>
  };
 };
 
+export{init}
