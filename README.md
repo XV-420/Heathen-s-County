@@ -1,9 +1,9 @@
 <h1>ChangeLog</h1>
 <h2>Sprint 1 v0.0.1</h2>
 <h3>Updates</h3>
-<li>
+<ul>
   <li>Added Button</li>
   <li>Added Cultist</li>
-  <ul> Made a page</ul>
-</li>
+  <li> Made a page</li>
+</ul>
 <h3>Bug Fixes</h3>
