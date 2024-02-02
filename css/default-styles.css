@@ -1,0 +1,18 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 200%;
+    margin: auto;
+}
+
+button{
+    width: 20%;
+    padding:5%;
+    font-size: 200%;
+    width: fit-content;
+    max-height: 900px;
+    max-width: 900px;
+    
+}
