@@ -5,6 +5,8 @@ body{
     align-items: center;
     font-size: 200%;
     margin: auto;
+    background-color:black ;
+    color: white;
 }
 
 button{
