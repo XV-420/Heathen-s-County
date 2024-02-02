@@ -3,6 +3,9 @@ let ctx;
 const init = () =>{  
 
     let canvas = document.querySelector("canvas");
+    canvas.height = window.innerHeight * 1/2;
+    canvas.width = window.innerWidth;
+
 
     ctx = canvas.getContext("2d");
 
