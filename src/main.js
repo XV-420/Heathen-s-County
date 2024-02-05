@@ -7,6 +7,7 @@ let score = 0;
 const init = () => {
    let scoreOutput = document.querySelector("#score");
    
+   //for now button updates here
    const onclickScore = () => {
       score++;
       scoreOutput.innerHTML = score;
@@ -15,11 +16,9 @@ const init = () => {
    const loop = () =>{
       setTimeout(loop, 1000/60);
       button.update();
-      button2.update();
    };
 
-   const button = new Button(document.querySelector("#score-button"), .5, onclickScore);
-   const button2 = new Button(document.querySelector("#score-button2"), 2, onclickScore)
+   const button = new Button(document.querySelector("#score-button"), 5, onclickScore);
 
    loop();
 
