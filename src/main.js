@@ -1,11 +1,29 @@
+import { Button } from './button-class.js'
 let score = 0;
 
-window.onload = () =>
-{
- let scoreOutput = document.querySelector("#score");
- document.querySelector("#score-button").onclick = () =>{
-    score ++;
-    scoreOutput.innerHTML = score;
- };
+window.onload = () => {
+
+   const onclickScore = () => {
+      score++;
+      scoreOutput.innerHTML = score;
+   };
+
+   const loop = () =>{
+      setTimeout(loop, 1000/60);
+      button.update();
+      button2.update();
+   };
+
+   let scoreOutput = document.querySelector("#score");
+   const button = new Button(document.querySelector("#score-button"), .5, onclickScore);
+   const button2 = new Button(document.querySelector("#score-button2"), 2, onclickScore)
+
+   loop();
+
 };
+
+
+
+
+
 
