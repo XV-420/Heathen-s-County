@@ -1,8 +1,12 @@
+
+import * as canvas from "./canvas.js"
 import { Button } from './button-class.js'
+
 let score = 0;
 
-window.onload = () => {
-
+const init = () => {
+   let scoreOutput = document.querySelector("#score");
+   
    const onclickScore = () => {
       score++;
       scoreOutput.innerHTML = score;
@@ -14,16 +18,12 @@ window.onload = () => {
       button2.update();
    };
 
-   let scoreOutput = document.querySelector("#score");
    const button = new Button(document.querySelector("#score-button"), .5, onclickScore);
    const button2 = new Button(document.querySelector("#score-button2"), 2, onclickScore)
 
    loop();
 
+   canvas.init();
 };
 
-
-
-
-
-
+export { init }
