@@ -1,0 +1,32 @@
+
+.button_progress{
+    position: absolute;
+    height: 100%;
+    width:100%;
+    top: 0;
+    left: 0;
+    background-color: gray;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 200%;
+    margin: auto;
+    background-color:black ;
+    color: white;
+}
+
+button{
+    width: 20%;
+    padding:5%;
+    font-size: 200%;
+    width: fit-content;
+    max-height: 900px;
+    max-width: 900px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden; 
+}
