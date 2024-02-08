@@ -38,14 +38,14 @@ const init = () => {
       button.update();
       faithButton.update();
       if(score=='0'){
-         imgheart.src="../assets/heart_static.png";
+         imgheart.src="./assets/heartgif.gif";
          GifRunning=false;
       }else{
          
          if(GifRunning==false){
       
          
-            imgheart.src="../assets/heartgif.gif";
+            imgheart.src="./assets/heartgif.gif";
             GifRunning=true;
          }else{
             
