@@ -9,21 +9,35 @@
 </head>
 
 <body>
-<h3>CULTISTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h3>
-<div id = "score">0</div>
+<ul><div id="main"><div id=tab><button id="cult-tab" class="tab">CULT</button><button id="test" class="tab">TEST</button></div>
+ <div id="mainroom">
+<div id="resources">
+    <h2 style="margin-top: 0px;">Resources</h2>
+    <ul>
+        <li>faith:<div id="faith">0</div></li>
+        <li><p>Cultists:<div id="score">0</div></p></li>
+    </ul>
+</div>
+<br>
+<div id="button_holder">
 <button type="button" id = "score-button" class = "button">
     <!--<div class="button_progress"></div>--->
     RECRUIT
+    
 </button>
-<h3>FAITH:</h3>
-<div id = "faith">0</div>
-<br>
-<button type="button" id = "faith-button" class = "button">
+<img type="button" id = "faith-button" class="hvr-pulse-grow" src="assets/heartgif.gif">
+
     <!--<div class="button_progress"></div>--->
-    SACRIFICE
-</button>
+    <!--SACRIFICE--->
+</img>
+</div>
 <br>
 <canvas width="800" height="700"></canvas>
+</div>
+<div id="testroom">
+    <h1>Test Room</h1>
+</div>
+</ul>
 </body>
 
 </html>
