@@ -10,7 +10,7 @@ let faith = new resources.Faith("Faith", 0, score);
 const init = () => {
    let scoreOutput = document.querySelector("#score");
    let faithOutput = document.querySelector("#faith");
-
+   let cultdisplay=document.querySelector("#mainroom");
    //for now buttons update here
    const onclickScore = () => {
       score++;
@@ -32,11 +32,33 @@ const init = () => {
       setTimeout(loop, 1000 / 60);
       button.update();
       faithButton.update();
+      if(score=='0'){
+         document.getElementById("faith-button").src="../assets/heart_static.png";
+      }else{
+         
+         if(document.getElementById("faith-button").src=="../assets/heartgif.gif"){
+
+         }else{
+            document.getElementById("faith-button").src="../assets/heartgif.gif";
+         }
+         
+      }
    };
+   const onclickCult=()=>{
+      document.getElementById("mainroom").style.display="block";
+      document.getElementById("testroom").style.display="none";
+
+   }
+   const onclickTest=()=>{
+      document.getElementById("mainroom").style.display="none";
+      document.getElementById("testroom").style.display="block";
+   }
 
    const button = new Button(document.querySelector("#score-button"), 5, onclickScore);
    const faithButton = new Button(document.querySelector("#faith-button"), 5, onclickFaith);
-
+   const culttab=document.querySelector("#cult-tab");
+   document.getElementById("cult-tab").addEventListener("click", onclickCult);
+   document.getElementById("test").addEventListener("click",onclickTest);
    loop();
 
    canvas.init();
