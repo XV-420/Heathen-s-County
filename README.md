@@ -4,6 +4,7 @@
 <ul>
   <li>Added Button</li>
   <li>Added Cultist</li>
+  <li>Added Cultist Manager</li>
   <li> Made a page</li>
 </ul>
 <h3>Bug Fixes</h3>
