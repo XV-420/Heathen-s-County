@@ -1,13 +1,15 @@
-import { makeColor } from "./utils";
+//import { makeColor } from "./utils.js";
 
 
 //Basic Object for the canvas class
 class CanvasObject {
     //takes in canvas size
     constructor(_xPos = 0, _yPos = 0, _scale = 1, ) {
-      this.position = new Vec(_xPos, _yPos);   
+      //TODO: make Vecs
+      //this.position = new Vec(_xPos, _yPos);   
       this.scale = _scale; //scale = 1 by default
-      this.color = makeColor(255,255,255,255);//black : temp
+      //this.color = makeColor(255,255,255,255);//black : temp
+      this.color = "black";
       this.size = 1; //makes sure the scale doesn't permanently change the object
     };
      

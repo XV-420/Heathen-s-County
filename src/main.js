@@ -1,11 +1,12 @@
 
 import * as canvas from "./canvas.js"
-import { Button } from './button-class.js'
+import { Button } from './button.js'
 import * as resources from "./resources.js"
 
 let score = 0;
 
 let faith = new resources.Faith("Faith", 0, score);
+let cultistManager = new resources.CultistManager("Culstists", faith);
 
 const init = () => {
    let scoreOutput = document.querySelector("#score");
@@ -13,19 +14,22 @@ const init = () => {
 
    //for now buttons update here
    const onclickScore = () => {
-      score++;
-      scoreOutput.innerHTML = score;
+      // score++;
+      // scoreOutput.innerHTML = score;
+      cultistManager.AddCultist();
+      scoreOutput.innerHTML = cultistManager.amount;
    };
+
    const onclickFaith = () => {
-      //only update faith if score is more than 1
-      if (score > 0) {
-         //increase faith by one, but decrease score by one
-         faith.amount++;
-         score--;
-         //update HTML
-         scoreOutput.innerHTML = score;
-         faithOutput.innerHTML = faith.amount;
-      }
+      //sacrifices a cultist
+      cultistManager.SacrificeRandomCultist();
+
+      //increase faith by one, but decrease score by one
+      // faith.amount++;
+      // score--;
+      // //update HTML
+      scoreOutput.innerHTML = cultistManager.amount;
+      faithOutput.innerHTML = faith.amount;
    }
 
    const loop = () => {
