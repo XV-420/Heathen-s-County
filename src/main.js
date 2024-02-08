@@ -41,7 +41,7 @@ const init = () => {
       setTimeout(loop, 1000 / 60);
       button.update();
       faithButton.update();
-      if(score=='0'){
+      if(cultistManager.amount==0){
          imgheart.src="./assets/heart_static.png";
          GifRunning=false;
       }else{
