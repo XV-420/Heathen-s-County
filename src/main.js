@@ -11,6 +11,7 @@ const init = () => {
    let scoreOutput = document.querySelector("#score");
    let faithOutput = document.querySelector("#faith");
    let cultdisplay=document.querySelector("#mainroom");
+   let GifRunning=false;
    //for now buttons update here
    const onclickScore = () => {
       score++;
@@ -34,12 +35,16 @@ const init = () => {
       faithButton.update();
       if(score=='0'){
          document.getElementById("faith-button").src="../assets/heart_static.png";
+         GifRunning=false;
       }else{
          
-         if(document.getElementById("faith-button").src=="../assets/heartgif.gif"){
-
-         }else{
+         if(GifRunning==false){
+      
+         
             document.getElementById("faith-button").src="../assets/heartgif.gif";
+            GifRunning=true;
+         }else{
+            
          }
          
       }
