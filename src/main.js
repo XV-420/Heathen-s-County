@@ -42,7 +42,7 @@ const init = () => {
       button.update();
       faithButton.update();
       if(score=='0'){
-         imgheart.src="./assets/heartgif.gif";
+         imgheart.src="./assets/heart_static.png";
          GifRunning=false;
       }else{
          
