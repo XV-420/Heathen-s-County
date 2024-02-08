@@ -3,6 +3,10 @@
 <h3>Updates</h3>
 <ul>
   <li>Added Button</li>
+  <li>Added Canvas and general helper methods</li>
+  <li>Added Canvas Object Class</li>
+   <li>Added Vector Class</li>
+  <li>Added Canvas</li>
   <li>Added Cultist</li>
   <li>Added Cultist Manager</li>
   <li> Made a page</li>
