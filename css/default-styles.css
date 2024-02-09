@@ -5,14 +5,16 @@
     width:100%;
     top: 0;
     left: 0;
-    background-color: gray;
+    background-color: rgb(255, 255, 255);
+    z-index: -1;
 }
 
 body{
-    display: flex;
+    /*display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    */
     font-size: 200%;
     margin: auto;
     background-color:black ;
@@ -29,4 +31,82 @@ button{
     position: relative;
     cursor: pointer;
     overflow: hidden; 
+    z-index: 1;
+    background-color: gray;
+    
 }
+#tab{
+    display: flex;
+    justify-content: center;
+}
+.tab {
+    font-size: 20px;
+    font-weight: bold;
+    width:fit-content;
+    padding: 10px 14px 10px 14px;
+}
+#resources{
+    right: 0px;
+    display: inline;
+    top: 0px;
+    float: right;
+    position: relative;
+    border: 5px aliceblue solid;
+}
+#button_holder{
+    display: flex;
+    justify-content: space-around;
+}
+#testroom{
+    display: none;
+}
+canvas{
+    box-shadow: 1px -1px 20px 20px #497f1b;
+    left: 0px;
+    position:fixed;
+}
+@-webkit-keyframes hvr-pulse-grow {
+    to {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+  @keyframes hvr-pulse-grow {
+    to {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+  .hvr-pulse-grow {
+    /*background-image: url(../assets/heart.gif);*/
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  }
+  .hvr-pulse-grow:hover,  .hvr-pulse-grow:active {
+    -webkit-animation-name: hvr-pulse-grow;
+    animation-name: hvr-pulse-grow;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+  }
+  #faith-button{
+    width: 20%;
+    padding:5%;
+    font-size: 200%;
+    width: fit-content;
+    max-height: 900px;
+    max-width: 900px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden; 
+    z-index: 1;
+    
+  }
