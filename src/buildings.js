@@ -9,6 +9,14 @@ const PRICE = {
     cultists: 0
 }
 
+const BUILDINGS = {
+    Farm: ,
+    Church: ,
+    TradingPost: ,
+    Hut: ,
+
+}
+
 
 class Building
 {
@@ -124,11 +132,11 @@ class Mine extends Building
 
 class BuildingManager
 {
-    church;
-    tradingPost;
-    huts;
-    mines;
-    farms;
+    #church;
+    #tradingPost;
+    #huts;
+    #mines;
+    #farms;
     constructor(cultistManager, faith, money){ //additional resources
         this.#Init();
     }
@@ -140,15 +148,16 @@ class BuildingManager
     //3 of each of the rest
     #Init(){
         //make all the buildings
-        this.church = new Church();
-        this.tradingPost = new TradingPost();
-        this.huts = [new Hut(), new Hut(), new Hut()];
-        this.mines = [new Mine(), new Mine(), new Mine()];
-        this.farms = [new Farm(), new Farm(), new Farm()];
+        this.#church = new Church();
+        this.#tradingPost = new TradingPost();
+        this.#huts = new Hut();
+        this.#mines = new Mine();
+        this.#farms = new Farm();
     }
 
     Update(){
         //check level of each building and update values based on their level\
+
 
         //church
 
