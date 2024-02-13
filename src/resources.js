@@ -19,7 +19,14 @@ class Faith extends Resource {
     grow(multiplier = this.multiplier) {
         this.amount = this.amount + (1 * multiplier);
     }
+
+    //opposite of grow
+    erode(multiplier = this.multiplier){
+        this.amount = this.amount - (1 * multiplier);
+    }
 }
+
+
 
 class CultistManager extends Resource {
     
@@ -32,7 +39,7 @@ class CultistManager extends Resource {
 
     //add a cultist to the array
     AddCultist() {
-        this.cultists.push(new cultist.Cultist(1, 10, 0, 50, 50));
+        this.cultists.push(new cultist.Cultist(.01, 10, 0, 50, 50));
         this.amount = this.cultists.length; //update amount
     }
 
@@ -40,6 +47,15 @@ class CultistManager extends Resource {
     GrowFaith() {
         this.cultists.forEach(cultist => {
             this.faith.amount += cultist.passiveFaithGeneration;
+        });
+    }
+
+    //for each cultist, increase passive faith gain
+    // * 2 for now on upgrade
+    UpgradeCultists(){
+        this.cultists.forEach(cultist => {
+            cultist.passiveFaithGeneration *= 2;
+            cultist.faithOnDeath *=2
         });
     }
 
@@ -54,7 +70,6 @@ class CultistManager extends Resource {
             this.amount = this.cultists.length; //update amount
         }
     }
-
 }
 
 export { Resource, Faith, CultistManager };

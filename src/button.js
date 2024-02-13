@@ -43,9 +43,20 @@ class Button {
         }
     };
 
-    #setProgressBar() {
-        this.child.style.width = `${this.percent}%`;
+    Disable(){
+        this.#setProgressBar(0);
+        this.clicked = true;
+    }
+    Enable(){
+        this.#setProgressBar(100);
+        this.clicked = false;
+    }
+
+    #setProgressBar(percent = this.percent) {
+        this.child.style.width = `${percent}%`;
     };
+
+
 }
 
 export { Button }
