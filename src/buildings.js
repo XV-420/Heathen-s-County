@@ -136,7 +136,9 @@ class BuildingManager {
             this.SubtractCosts(BUILDINGS.Church.price);
             BUILDINGS.Church.Upgrade();
             console.log("clicked");
+            churchButton.ChangeName(BUILDINGS.Church.currentName)
         });
+        this.churchButton.ChangeName(BUILDINGS.Church.currentName)
     }
 
     SubtractCosts(price){

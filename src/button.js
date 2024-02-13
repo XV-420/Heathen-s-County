@@ -9,6 +9,10 @@ class Button {
         this.clicked = false;
 
         //create progress div
+        this.childName = document.createElement("div");
+        this.childName.classList.add("button-name");
+        this.button.appendChild(this.childName);
+
         this.child = document.createElement("div");
         this.child.classList.add("button_progress");
         this.button.appendChild(this.child);
@@ -24,6 +28,10 @@ class Button {
         //update
         this.update();
     };
+
+    ChangeName(name){
+        this.childName.innerHTML = name;
+    }
 
     //changes the time on the button
     changeLoadingTime(_loadingTime) {
