@@ -2,11 +2,16 @@
 import * as canvas from "./canvas.js"
 import { Button } from './button.js'
 import * as resources from "./resources.js"
+import * as buildings from "./buildings.js"
 
 let score = 0;
 
 let faith = new resources.Faith("Faith", 0, score);
 let cultistManager = new resources.CultistManager("Culstists", faith);
+
+
+//last as it takes in faith and cultist and other resources in the future
+const buildingManager = new buildings.BuildingManager(cultistManager, faith);
 
 const init = () => {
    let scoreOutput = document.querySelector("#score");
@@ -34,13 +39,19 @@ const init = () => {
       // score--;
       // //update HTML
       scoreOutput.innerHTML = cultistManager.amount;
-      faithOutput.innerHTML = faith.amount;
+   }
+   const onclickPray =()=>{
+      //increase pray by 1
+      cultistManager.AddFaith();
    }
 
    const loop = () => {
       setTimeout(loop, 1000 / 60);
       button.update();
       faithButton.update();
+      buildingManager.Update();
+      prayButton.update();
+      faithOutput.innerHTML = Math.round(faith.amount);
       if(cultistManager.amount==0){
          imgheart.src="./assets/heart_static.png";
          GifRunning=false;
@@ -69,7 +80,7 @@ const init = () => {
 
    const button = new Button(document.querySelector("#score-button"), 5, onclickScore);
    const faithButton = new Button(document.querySelector("#faith-button"), 5, onclickFaith);
-   
+   const prayButton=new Button(document.querySelector("#pray-button"),5,onclickPray)
    culttab.addEventListener("click", onclickCult);
    shopTab.addEventListener("click",onclickTest);
    loop();
