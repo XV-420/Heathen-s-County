@@ -49,7 +49,10 @@ class CultistManager extends Resource {
             this.faith.amount += cultist.passiveFaithGeneration;
         });
     }
-
+    //increase fath by one 
+    AddFaith(){
+        this.faith.amount+=1;
+    }
     //for each cultist, increase passive faith gain
     // * 2 for now on upgrade
     UpgradeCultists(){

@@ -40,13 +40,17 @@ const init = () => {
       // //update HTML
       scoreOutput.innerHTML = cultistManager.amount;
    }
+   const onclickPray =()=>{
+      //increase pray by 1
+      cultistManager.AddFaith();
+   }
 
    const loop = () => {
       setTimeout(loop, 1000 / 60);
       button.update();
       faithButton.update();
       buildingManager.Update();
-
+      prayButton.update();
       faithOutput.innerHTML = Math.round(faith.amount);
       if(cultistManager.amount==0){
          imgheart.src="./assets/heart_static.png";
@@ -76,7 +80,7 @@ const init = () => {
 
    const button = new Button(document.querySelector("#score-button"), 5, onclickScore);
    const faithButton = new Button(document.querySelector("#faith-button"), 5, onclickFaith);
-   
+   const prayButton=new Button(document.querySelector("#pray-button"),5,onclickPray)
    culttab.addEventListener("click", onclickCult);
    shopTab.addEventListener("click",onclickTest);
    loop();
