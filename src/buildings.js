@@ -14,6 +14,7 @@ class Building {
         this.level = 0; //level of the object
         this.assignedCultists = 0;
         this.price = PRICE;
+        Object.assign(this.price, PRICE);
         this.hidden = true; //make all the buildings up front, and hide the ones that 
         this.names = _names;
         this.currentName = this.names[0];
@@ -185,4 +186,4 @@ class BuildingManager {
 
 }
 
-export { BuildingManager }
+export { BuildingManager, BUILDINGS }

@@ -1,4 +1,5 @@
 import * as cultist from "./cultist.js"
+import {BUILDINGS} from "./buildings.js"
 
 class Resource {
 
@@ -30,7 +31,7 @@ class Faith extends Resource {
 
 class CultistManager extends Resource {
     
-    constructor(name, faith) {
+    constructor(name, faith, ) {
         super(name);
         this.amount = 0;
         this.faith = faith; //reference to the Faith resource
@@ -41,6 +42,7 @@ class CultistManager extends Resource {
     AddCultist() {
         this.cultists.push(new cultist.Cultist(.01, 10, 0, 50, 50));
         this.amount = this.cultists.length; //update amount
+        Buildings.Church.AssignCultist();
     }
 
     //Increase faith by the specified passive amount for each cultist
@@ -71,7 +73,43 @@ class CultistManager extends Resource {
             this.faith.amount += this.cultists[randNum].faithOnDeath;
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
+            Buildings.Church.RemoveCultist();
         }
+    }
+
+
+    //SetupUI-gets the buttons for each building
+    //+ Church
+    //+- Trading Post
+    //+- Farm
+    //+- Apartments
+    //+- Mines
+
+    //removes a cultist to the building
+    //adds one from the church
+    onClickMinusBuilding(building){
+        if(building.assignedCultists <= 0)
+            return;
+        building.RemoveCultist();
+        BUILDINGS.Church.AssignCultist();
+    }
+
+    //adds a cultist to the building
+    //removes one from the church
+    onClickPlusBuilding(building){
+        if(BUILDINGS.Church.assignedCultists <= 0)
+            return;
+        building.AddCultist();
+    }
+
+    //adds one cultist to the church, removes one from a random building
+    onChurchPlusClick(){
+        for(let building of BUILDINGS){
+            if(building.assignedCultists <= 0)
+            return;
+        };
+
+        //TODO add ability to remove one from a random building.
     }
 }
 
