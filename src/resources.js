@@ -9,7 +9,7 @@ class Resource {
     }
 
 }
-
+//Gonna condense this later
 class Faith extends Resource {
     constructor(name, amount, multiplier) {
         super(name, amount);
@@ -26,6 +26,39 @@ class Faith extends Resource {
         this.amount = this.amount - (1 * multiplier);
     }
 }
+class Money extends Resource {
+    constructor(name, amount, multiplier) {
+        super(name, amount);
+        this.multiplier = multiplier;
+    }
+
+    //increase by the amount speicified by the multiplier
+    grow(multiplier = this.multiplier) {
+        this.amount = this.amount + (1 * multiplier);
+    }
+
+    //opposite of grow
+    erode(multiplier = this.multiplier){
+        this.amount = this.amount - (1 * multiplier);
+    }
+}
+class Food extends Resource {
+    constructor(name, amount, multiplier) {
+        super(name, amount);
+        this.multiplier = multiplier;
+    }
+
+    //increase by the amount speicified by the multiplier
+    grow(multiplier = this.multiplier) {
+        this.amount = this.amount + (1 * multiplier);
+    }
+
+    //opposite of grow
+    erode(multiplier = this.multiplier){
+        this.amount = this.amount - (1 * multiplier);
+    }
+}
+
 
 
 
@@ -121,4 +154,4 @@ class CultistManager extends Resource {
     }
 }
 
-export { Resource, Faith, CultistManager };
+export { Resource, Faith, Money,Food, CultistManager };

@@ -7,21 +7,25 @@ import * as buildings from "./buildings.js"
 let score = 0;
 
 let faith = new resources.Faith("Faith", 0, score);
+let money=new resources.Money("Money",3000,1);
+let food =new resources.Food("Food",3000,1);
 let cultistManager = new resources.CultistManager("Culstists", faith);
 
 
 //last as it takes in faith and cultist and other resources in the future
-const buildingManager = new buildings.BuildingManager(cultistManager, faith);
+const buildingManager = new buildings.BuildingManager(cultistManager, faith,money,food);
 
 const init = () => {
    let scoreOutput = document.querySelector("#score");
    let faithOutput = document.querySelector("#faith");
-   let cultdisplay = document.querySelector("#mainroom");
-   let Shopdisplay = document.querySelector('#testroom');
-   let shopTab = document.querySelector('#test-tab');
-   let culttab = document.querySelector("#cult-tab");
-   let GifRunning = false;
-   let imgheart = document.querySelector('.hvr-pulse-grow');
+   let foodOutput = document.querySelector("#food");
+   let moneyOutput = document.querySelector("#money");
+   let cultdisplay=document.querySelector("#mainroom");
+   let Shopdisplay=document.querySelector('#testroom');
+   let shopTab=document.querySelector('#test-tab');
+   let culttab=document.querySelector("#cult-tab");
+   let GifRunning=false;
+   let imgheart=document.querySelector('.hvr-pulse-grow');
    //for now buttons update here
    const onclickScore = () => {
       // score++;
@@ -71,18 +75,21 @@ const init = () => {
       buildingManager.Update();
 
       faithOutput.innerHTML = Math.round(faith.amount);
-      if (cultistManager.amount == 0) {
-         imgheart.src = "./assets/heart_static.png";
-         GifRunning = false;
-      } else {
-
-         if (GifRunning == false) {
-
-
-            imgheart.src = "./assets/heartgif.gif";
-            GifRunning = true;
-         } else {
-
+      scoreOutput.innerHTML=cultistManager.amount;
+      foodOutput.innerHTML=Math.round(food.amount);
+      moneyOutput.innerHTML=Math.round(money.amount);
+      if(cultistManager.amount==0){
+         imgheart.src="./assets/heart_static.png";
+         GifRunning=false;
+      }else{
+         
+         if(GifRunning==false){
+      
+         
+            imgheart.src="./assets/heartgif.gif";
+            GifRunning=true;
+         }else{
+            
          }
 
       }
