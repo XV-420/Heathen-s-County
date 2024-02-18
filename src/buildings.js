@@ -50,7 +50,7 @@ class Building {
     }
 
     //update
-    Update() { if(this.hidden) return;};
+    Update() { if (this.hidden) return; };
 }
 
 class Church extends Building {
@@ -63,20 +63,34 @@ class Church extends Building {
     Update(cultistManager) {
         super.Update();
         if (this.level > 0)
-                cultistManager.GrowFaith();
-
+            cultistManager.GrowFaith();
     }
 
     //overide to change cost
-    Upgrade(){
+    Upgrade() {
         super.Upgrade();
-        this.price.faith *=2; //double faith cost for now //tmp
+        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
 class Hut extends Building {
     constructor(maxCount, names) {
         super(maxCount, names);
+    }
+
+    //has the passive gain for the building
+    Update(cultistManager) {
+        super.Update();
+        //TODO: Make the amount of added cultists more dynamic
+        if (this.level > 0)
+            cultistManager.AddCultist();
+
+    }
+
+    //overide to change cost
+    Upgrade() {
+        super.Upgrade();
+        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
@@ -142,9 +156,9 @@ class BuildingManager {
         this.churchButton.ChangeName(BUILDINGS.Church.currentName)
     }
 
-    SubtractCosts(price){
+    SubtractCosts(price) {
         this.faith.amount -= price.faith;
-        
+
         //other resouces lower here
     }
 
@@ -164,15 +178,15 @@ class BuildingManager {
     }
 
     //updates all the buttons
-    UIUpdate(){
+    UIUpdate() {
         this.CheckBuy();
 
     }
 
     //check if they can buy it
     //for now ima update every frame
-    CheckBuy(){
-        if(BUILDINGS.Church.price.faith > this.faith.amount)
+    CheckBuy() {
+        if (BUILDINGS.Church.price.faith > this.faith.amount)
             this.churchButton.Disable();
 
         else
@@ -182,6 +196,11 @@ class BuildingManager {
 
 
         //other buildings
+    }
+
+    //Should maybe be refactored into something that can get the level of any building
+    CheckChurchLevel() {
+        return BUILDINGS.Church.level;
     }
 
 }
