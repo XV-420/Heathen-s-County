@@ -103,9 +103,7 @@ class Hut extends Building {
                 }
                 for (let index = 0; index < numpeople; index++) {
                     cultistManager.AddCultist();
-
                 }
-
             }
 
         }
@@ -113,21 +111,6 @@ class Hut extends Building {
     Upgrade() {
         super.Upgrade();
         this.maxCount *= 2;
-    }
-
-    //has the passive gain for the building
-    Update(cultistManager) {
-        super.Update();
-        //TODO: Make the amount of added cultists more dynamic
-        if (this.level > 0)
-            cultistManager.AddCultist();
-
-    }
-
-    //overide to change cost
-    Upgrade() {
-        super.Upgrade();
-        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
@@ -272,6 +255,7 @@ class BuildingManager {
     }
 
 
+    //checks the cultists assigned to each building and enables/disables relative buttons
     CheckCultistAmounts() {
         //update the +- of each building as well
         //church

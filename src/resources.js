@@ -134,6 +134,7 @@ class CultistManager extends Resource {
     //removes one from the church
     onClickPlusBuilding(building){
         building.AssignCultist();
+        BUILDINGS.Church.RemoveCultist();
     }
 
     //adds one cultist to the church, removes one from a random building
