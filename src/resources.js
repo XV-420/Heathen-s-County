@@ -42,7 +42,7 @@ class CultistManager extends Resource {
     AddCultist() {
         this.cultists.push(new cultist.Cultist(.01, 10, 0, 50, 50));
         this.amount = this.cultists.length; //update amount
-        Buildings.Church.AssignCultist();
+        BUILDINGS.Church.AssignCultist();
     }
 
     //Increase faith by the specified passive amount for each cultist
@@ -73,7 +73,7 @@ class CultistManager extends Resource {
             this.faith.amount += this.cultists[randNum].faithOnDeath;
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
-            Buildings.Church.RemoveCultist();
+            BUILDINGS.Church.RemoveCultist();
         }
     }
 
@@ -109,7 +109,15 @@ class CultistManager extends Resource {
             return;
         };
 
-        //TODO add ability to remove one from a random building.
+        //pick a building and remove a cultist from it
+        //will do first availiable for efficiency
+        for(let i = 1; i < BUILDINGS.length-1; i++){
+            if(BUILDINGS[i].assignedCultists > 0)
+            {
+                BUILDINGS[i].RemoveCultist();
+                return;
+            }
+        }
     }
 }
 

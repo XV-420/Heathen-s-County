@@ -39,7 +39,7 @@ class Building {
 
 
     //assign a cultist from this building
-    AssignCultist(amount = amount) {
+    AssignCultist(amount = 1) {
         this.assignedCultists + amount;
     };
 
@@ -102,8 +102,8 @@ class Mine extends Building {
 }
 
 const BUILDINGS = {
-    Farm: new Farm(3, ["Pen", "Farmstead", "Farms", "Slaughterhouses", "Butchery"]),
     Church: new Church(1, ["Shrine", "Chapel", "Church", "Temple", "ziggurat"]),
+    Farm: new Farm(3, ["Pen", "Farmstead", "Farms", "Slaughterhouses", "Butchery"]),
     TradingPost: new TradingPost(1, ["Shrine", "Chapel", "Church", "Temple", "ziggurat"]),
     Hut: new Hut(3, ["Hut", "Home", "Apartments", "Super Habitation Complex", "Container"]),
     Mine: new Mine(3, ["Mine, Strip-Mine, Bank, Donation Center, Alms Collection Facility"])
