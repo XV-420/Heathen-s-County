@@ -1,4 +1,5 @@
 import * as cultist from "./cultist.js"
+import {BUILDINGS} from "./buildings.js"
 
 class Resource {
 
@@ -63,7 +64,7 @@ class Food extends Resource {
 
 class CultistManager extends Resource {
     
-    constructor(name, faith) {
+    constructor(name, faith, ) {
         super(name);
         this.amount = 0;
         this.faith = faith; //reference to the Faith resource
@@ -74,13 +75,19 @@ class CultistManager extends Resource {
     AddCultist() {
         this.cultists.push(new cultist.Cultist(.01, 10, 0, 50, 50));
         this.amount = this.cultists.length; //update amount
+        BUILDINGS.Hut.AssignCultist();
     }
 
     //Increase faith by the specified passive amount for each cultist
-    GrowFaith() {
-        this.cultists.forEach(cultist => {
+    GrowFaith(){
+        /*this.cultists.forEach(cultist => {
             this.faith.amount += cultist.passiveFaithGeneration;
-        });
+        });*/
+
+        if(this.cultists.length > 0)
+            //just use the passive faith generation of the first cultist in the array for now
+            this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists;
+        
     }
     //increase fath by one 
     AddFaith(){
@@ -104,6 +111,45 @@ class CultistManager extends Resource {
             this.faith.amount += this.cultists[randNum].faithOnDeath;
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
+            BUILDINGS.Hut.RemoveCultist();
+        }
+    }
+
+
+    //SetupUI-gets the buttons for each building
+    //+ Church
+    //+- Trading Post
+    //+- Farm
+    //+- Apartments
+    //+- Mines
+
+    //removes a cultist to the building
+    //adds one from the church
+    onClickMinusBuilding(building){
+        building.RemoveCultist();
+        BUILDINGS.Hut.AssignCultist();
+    }
+
+    //adds a cultist to the building
+    //removes one from the church
+    onClickPlusBuilding(building){
+        building.AssignCultist();
+        BUILDINGS.Hut.RemoveCultist();
+    }
+
+    //adds one cultist to the church, removes one from a random building
+    onHutPlusClick(){
+        //pick a building and remove a cultist from it
+        //will do first availiable for efficiency
+        for (let key of Object.keys(BUILDINGS)) {
+            if(key != "Hut")
+            {
+                if(BUILDINGS[key].assignedCultists > 0)
+                {
+                    this.onClickMinusBuilding(BUILDINGS[key]);
+                    return;
+                }
+            }
         }
     }
 }

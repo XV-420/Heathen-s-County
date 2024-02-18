@@ -44,17 +44,36 @@ const init = () => {
       // //update HTML
       scoreOutput.innerHTML = cultistManager.amount;
    }
-   const onclickPray =()=>{
-      //increase pray by 1
-      cultistManager.AddFaith();
+
+   const onclickPray = () => {
+      faith.amount++;
    }
 
    const loop = () => {
       setTimeout(loop, 1000 / 60);
-      button.update();
-      faithButton.update();
-      buildingManager.Update();
+
+      //TODO: move this out of main when refactoring
+      //Unlock Recruit when church is level 1 or higher
+      if (buildingManager.CheckChurchLevel() >= 1) {
+         //TODO: Do Enable and Update do the same thing?
+         //recruitButton.Enable();
+         recruitButton.update();
+      }
+      else {
+         recruitButton.Disable();
+      }
+      //TODO: Reconsider unlock levels
+      //unlock sacrifice when church is level 3 or higher
+      if (buildingManager.CheckChurchLevel() >= 3) {
+         sacrificeButton.update();
+      }
+      else {
+         sacrificeButton.Disable();
+      }
+
       prayButton.update();
+      buildingManager.Update();
+
       faithOutput.innerHTML = Math.round(faith.amount);
       scoreOutput.innerHTML=cultistManager.amount;
       foodOutput.innerHTML=Math.round(food.amount);
@@ -72,24 +91,25 @@ const init = () => {
          }else{
             
          }
-         
+
       }
    };
-   const onclickCult=()=>{
-      cultdisplay.style.display="block";
-      Shopdisplay.style.display="none";
+   const onclickCult = () => {
+      cultdisplay.style.display = "block";
+      Shopdisplay.style.display = "none";
 
    }
-   const onclickTest=()=>{
-      cultdisplay.style.display="none";
-      Shopdisplay.style.display="block";
+   const onclickTest = () => {
+      cultdisplay.style.display = "none";
+      Shopdisplay.style.display = "block";
    }
 
-   const button = new Button(document.querySelector("#score-button"), 5, onclickScore);
-   const faithButton = new Button(document.querySelector("#faith-button"), 5, onclickFaith);
-   const prayButton=new Button(document.querySelector("#pray-button"),5,onclickPray)
+   const recruitButton = new Button(document.querySelector("#score-button"), 1, onclickScore);
+   const sacrificeButton = new Button(document.querySelector("#faith-button"), 5, onclickFaith);
+   const prayButton = new Button(document.querySelector("#pray-button"), 5, onclickPray);
+
    culttab.addEventListener("click", onclickCult);
-   shopTab.addEventListener("click",onclickTest);
+   shopTab.addEventListener("click", onclickTest);
    loop();
 
    canvas.init();

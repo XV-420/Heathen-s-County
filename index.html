@@ -9,42 +9,54 @@
 </head>
 
 <body>
-<ul><div id="main"><div id=tab><button id="cult-tab" class="tab">CULT</button><button id="test-tab" class="tab">TEST</button></div>
- <div id="mainroom">
-<div id="resources">
-    <h2 style="margin-top: 0px;">Resources</h2>
     <ul>
-        <li>Faith:<div id="faith">0</div></li>
-        <li><p>Cultists:<div id="score">0</div></p></li>
-        <li>Money<div id="money">0</div></li>
-        <li>Food<div id="food">0</div></li>
-    </ul>
-</div>
-<br>
-<div id="button_holder">
-<button type="button" id = "score-button" class = "button">
-    <!--<div class="button_progress"></div>--->
-    RECRUIT
-    
-</button>
-<img type="button" id = "faith-button" class="hvr-pulse-grow" src="assets/heartgif.gif">
-<button TYPE="button" id="pray-button" class="button">
-    Pray
-</button>
-    <!--<div class="button_progress"></div>--->
-    <!--SACRIFICE--->
-</img>
-</div>
-<br>
-<canvas width="800" height="700"></canvas>
-</div>
-<div id="testroom">
-    <h1>Test Room</h1>
+        <div id="main">
+            <div id=tab><button id="cult-tab" class="tab">CULT</button><button id="test-tab" class="tab">TEST</button>
+            </div>
+            <div id="mainroom">
+                <div id="resources">
+                    <h2 style="margin-top: 0px;">Resources</h2>
+                    <ul>
+                        <li>Faith<div id="faith">0</div></li>
+                        <li>Cultists<div id="score">0</div></li>
+                        <li>Money<div id="money">0</div></li>
+                        <li>Food<div id="food">0</div></li>
+                    </ul>
+                </div>
+                <br>
+                <div id="button_holder">
+                    <button type="button" id="pray-button" class="button">
+                        <!--<div class="button_progress"></div>--->
+                        PRAY
+                
+                    </button>
+                <button type="button" id = "score-button" class = "button">
+                    <!--<div class="button_progress"></div>--->
+                    RECRUIT
+                    
+                </button>
+                <img type="button" id = "faith-button" class="hvr-pulse-grow" src="assets/heartgif.gif">
+                
+                    <!--<div class="button_progress"></div>--->
+                    <!--SACRIFICE--->
+                </img>
+                </div>
+                <br>
+                <canvas width="800" height="700"></canvas>
+                </div>
+                <div id="testroom">
+                    <h1>Test Room</h1>
+                
+                    <button type="button" id = "church-button" class = "button"></button>
+                    <button type="button" id="hut-button" class="button"></button>
 
-    <button type="button" id = "church-button" class = "button"></button>
-    <button type="button" id="hut-button" class="button"></button>
-</div>
-</ul>
+
+                    <!--PLUS MINUS FOR EACH BUILDING: in testroom as it has less stuff-->
+                    <button type="button" id = "church-button-plus" class = "button">Church+</button>
+                    <button type="button" id="church-button-minus" class="button">Church-</button>
+                    <button type="button" id = "hut-button-plus" class = "button">Hut+</button>
+                </div>
+                </ul>
 </body>
 
 </html>
