@@ -187,8 +187,14 @@ class BuildingManager {
         const cplus = document.querySelector("#church-button-plus");
         this.churchPlusButton = new Button(cplus, 100, () => {
             console.log("church plus clicked");
-            this.cultistManager.onChurchPlusClick();
+            this.cultistManager.onClickPlusBuilding(BUILDINGS.Church);
             console.log("Church Amount: " + BUILDINGS.Church.assignedCultists);
+        });
+        const cminus = document.querySelector("#church-button-minus");
+        this.churchMinusButton = new Button(cminus, 100, () => {
+            console.log("Church Minus clicked");
+            this.cultistManager.onClickMinusBuilding(BUILDINGS.Church);
+            console.log("Church Amount: " + BUILDINGS.Church.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
         });
 
 
@@ -208,17 +214,11 @@ class BuildingManager {
         });
         this.hutButton.ChangeName(BUILDINGS.Hut.currentName)
 
-        //+- for hut
+        //+ for hut
         const hplus = document.querySelector("#hut-button-plus");
         this.hutPlusButton = new Button(hplus, 100, () => {
             console.log("hut plus clicked");
-            this.cultistManager.onClickPlusBuilding(BUILDINGS.Hut);
-            console.log("Church Amount: " + BUILDINGS.Church.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
-        });
-        const hminus = document.querySelector("#hut-button-minus");
-        this.hutMinusButton = new Button(hminus, 100, () => {
-            console.log("hut minus clicked");
-            this.cultistManager.onClickMinusBuilding(BUILDINGS.Hut);
+            this.cultistManager.onHutPlusClick();
             console.log("Church Amount: " + BUILDINGS.Church.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
         });
     }
@@ -258,31 +258,31 @@ class BuildingManager {
     //checks the cultists assigned to each building and enables/disables relative buttons
     CheckCultistAmounts() {
         //update the +- of each building as well
-        //church
+        //hut
         let cultistsInBuildings = false;
         for (let key of Object.keys(BUILDINGS)) {
-            if(key != "Church"){
+            if(key != "Hut"){
                 if (BUILDINGS[key].assignedCultists > 0)
                 cultistsInBuildings = true;
             }
         }
         if(cultistsInBuildings)
-            this.churchPlusButton.Enable();
+            this.hutPlusButton.Enable();
         else
-            this.churchPlusButton.Disable();
+            this.hutPlusButton.Disable();
 
-        //hut-minus
-        if(BUILDINGS.Hut.assignedCultists > 0)
-            this.hutMinusButton.Enable();
+        //church-minus
+        if(BUILDINGS.Church.assignedCultists > 0)
+            this.churchMinusButton.Enable();
         else
-            this.hutMinusButton.Disable();
+            this.churchMinusButton.Disable();
 
         //check church to determine if other buildings can be added to
-        if(BUILDINGS.Church.assignedCultists != 0){
-            this.hutPlusButton.Enable();
+        if(BUILDINGS.Hut.assignedCultists != 0){
+            this.churchPlusButton.Enable();
         }
         else{
-            this.hutPlusButton.Disable();
+            this.churchPlusButton.Disable();
         }
 
         //others

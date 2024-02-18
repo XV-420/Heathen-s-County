@@ -75,7 +75,7 @@ class CultistManager extends Resource {
     AddCultist() {
         this.cultists.push(new cultist.Cultist(.01, 10, 0, 50, 50));
         this.amount = this.cultists.length; //update amount
-        BUILDINGS.Church.AssignCultist();
+        BUILDINGS.Hut.AssignCultist();
     }
 
     //Increase faith by the specified passive amount for each cultist
@@ -111,7 +111,7 @@ class CultistManager extends Resource {
             this.faith.amount += this.cultists[randNum].faithOnDeath;
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
-            BUILDINGS.Church.RemoveCultist();
+            BUILDINGS.Hut.RemoveCultist();
         }
     }
 
@@ -127,22 +127,22 @@ class CultistManager extends Resource {
     //adds one from the church
     onClickMinusBuilding(building){
         building.RemoveCultist();
-        BUILDINGS.Church.AssignCultist();
+        BUILDINGS.Hut.AssignCultist();
     }
 
     //adds a cultist to the building
     //removes one from the church
     onClickPlusBuilding(building){
         building.AssignCultist();
-        BUILDINGS.Church.RemoveCultist();
+        BUILDINGS.Hut.RemoveCultist();
     }
 
     //adds one cultist to the church, removes one from a random building
-    onChurchPlusClick(){
+    onHutPlusClick(){
         //pick a building and remove a cultist from it
         //will do first availiable for efficiency
         for (let key of Object.keys(BUILDINGS)) {
-            if(key != "Church")
+            if(key != "Hut")
             {
                 if(BUILDINGS[key].assignedCultists > 0)
                 {
