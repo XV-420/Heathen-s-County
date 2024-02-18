@@ -79,10 +79,15 @@ class CultistManager extends Resource {
     }
 
     //Increase faith by the specified passive amount for each cultist
-    GrowFaith() {
-        this.cultists.forEach(cultist => {
+    GrowFaith(){
+        /*this.cultists.forEach(cultist => {
             this.faith.amount += cultist.passiveFaithGeneration;
-        });
+        });*/
+
+        if(this.cultists.length > 0)
+            //just use the passive faith generation of the first cultist in the array for now
+            this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists;
+        
     }
     //increase fath by one 
     AddFaith(){
@@ -121,8 +126,6 @@ class CultistManager extends Resource {
     //removes a cultist to the building
     //adds one from the church
     onClickMinusBuilding(building){
-        if(building.assignedCultists <= 0)
-            return;
         building.RemoveCultist();
         BUILDINGS.Church.AssignCultist();
     }
@@ -130,25 +133,21 @@ class CultistManager extends Resource {
     //adds a cultist to the building
     //removes one from the church
     onClickPlusBuilding(building){
-        if(BUILDINGS.Church.assignedCultists <= 0)
-            return;
-        building.AddCultist();
+        building.AssignCultist();
     }
 
     //adds one cultist to the church, removes one from a random building
     onChurchPlusClick(){
-        for(let building of BUILDINGS){
-            if(building.assignedCultists <= 0)
-            return;
-        };
-
         //pick a building and remove a cultist from it
         //will do first availiable for efficiency
-        for(let i = 1; i < BUILDINGS.length-1; i++){
-            if(BUILDINGS[i].assignedCultists > 0)
+        for (let key of Object.keys(BUILDINGS)) {
+            if(key != "Church")
             {
-                BUILDINGS[i].RemoveCultist();
-                return;
+                if(BUILDINGS[key].assignedCultists > 0)
+                {
+                    this.onClickMinusBuilding(BUILDINGS[key]);
+                    return;
+                }
             }
         }
     }
