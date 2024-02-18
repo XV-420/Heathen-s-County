@@ -1,0 +1,10 @@
+{
+    "Farm": ["A simple pen, used for holding livestock. \nPassively generates Food.",
+            "A small farm, with room for both animals and crops. \nIncreases Food generation.",
+            "A farm large enough to feed all who hunger. \nFurther increases Food generation.",
+            "It smells of Death, yet sustains Life. \nGreatly increases Food generation.",
+            "Blood begets Blood, Their Flesh fuels Ours. \nMassive Food generation."],
+    "Church": ["A shrine, to which prayers may be directed. \nPassively generates Faith.",
+            "A chapel, where beliefs can be shared in harmony. \nIncreases Faith generation.",
+            ""]
+}
