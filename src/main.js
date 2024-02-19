@@ -4,19 +4,17 @@ import { Button } from './button.js'
 import * as resources from "./resources.js"
 import * as buildings from "./buildings.js"
 
-let score = 0;
-
-let faith = new resources.Faith("Faith", 0, score);
+let faith = new resources.Faith("Faith", 0, 1);
 let money=new resources.Money("Money",3000,1);
 let food =new resources.Food("Food",3000,1);
-let cultistManager = new resources.CultistManager("Culstists", faith);
+let cultistManager = new resources.CultistManager("Cultists", faith, food);
 
 
 //last as it takes in faith and cultist and other resources in the future
 const buildingManager = new buildings.BuildingManager(cultistManager, faith,money,food);
 
 const init = () => {
-   let scoreOutput = document.querySelector("#score");
+   let scoreOutput = document.querySelector("#cultists");
    let faithOutput = document.querySelector("#faith");
    let foodOutput = document.querySelector("#food");
    let moneyOutput = document.querySelector("#money");
@@ -104,7 +102,7 @@ const init = () => {
       Shopdisplay.style.display = "block";
    }
 
-   const recruitButton = new Button(document.querySelector("#score-button"), 1, onclickScore);
+   const recruitButton = new Button(document.querySelector("#recruit-button"), 1, onclickScore);
    const sacrificeButton = new Button(document.querySelector("#faith-button"), 5, onclickFaith);
    const prayButton = new Button(document.querySelector("#pray-button"), 5, onclickPray);
 

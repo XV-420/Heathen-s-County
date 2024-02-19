@@ -64,10 +64,11 @@ class Food extends Resource {
 
 class CultistManager extends Resource {
     
-    constructor(name, faith, ) {
+    constructor(name, faith, food) {
         super(name);
         this.amount = 0;
         this.faith = faith; //reference to the Faith resource
+        this.food = food;
         this.cultists = [];
     }
 
@@ -86,8 +87,11 @@ class CultistManager extends Resource {
 
         if(this.cultists.length > 0)
             //just use the passive faith generation of the first cultist in the array for now
-            this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists;
-        
+            this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists; 
+    }
+
+    GrowFood(num){
+        this.food.amount += BUILDINGS.Farm.assignedCultists * num;
     }
     //increase fath by one 
     AddFaith(){

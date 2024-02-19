@@ -117,7 +117,11 @@ class Hut extends Building {
 class Farm extends Building {
     constructor(maxCount, names) {
         super(maxCount, names);
+        this.foodProductionPerCultist = .01;
+    }
 
+    Update(cultistManager){
+        
     }
 }
 
