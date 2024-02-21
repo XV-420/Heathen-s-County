@@ -328,7 +328,7 @@ class BuildingManager {
         }
         else {
             this.churchPlusButton.Disable();
-            this.farmMinusButton.Disable();
+            this.farmPlusButton.Disable();
         }
 
         //others
