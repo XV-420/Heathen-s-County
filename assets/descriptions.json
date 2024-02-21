@@ -6,5 +6,9 @@
             "Blood begets Blood, Their Flesh fuels Ours. \nMassive Food generation."],
     "Church": ["A shrine, to which prayers may be directed. \nPassively generates Faith.",
             "A chapel, where beliefs can be shared in harmony. \nIncreases Faith generation.",
-            ""]
+            "A beacon that guides the way to salvation. \nFurther increases Faith generation.",
+            "Here, we show devotion to the only cause that matters. \nGreatly increases Faith generation.",
+            "Discard thy Humanity, We serve a Higher Purpose. \nMassive Food generation."],
+        "Mine": ["A mine, to harvest materials. \nPassively generates money.",
+                ""]
 }

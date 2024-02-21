@@ -136,7 +136,7 @@ class Mine extends Building {
 }
 
 const BUILDINGS = {
-    Church: new Church(1, ["Shrine", "Chapel", "Church", "Temple", "ziggurat"]),
+    Church: new Church(1, ["Shrine", "Chapel", "Church", "Temple", "Ziggurat"]),
     Farm: new Farm(3, ["Pen", "Farmstead", "Farms", "Slaughterhouses", "Butchery"]),
     TradingPost: new TradingPost(1, ["Shrine", "Chapel", "Church", "Temple", "ziggurat"]),
     Hut: new Hut(3, ["Hut", "Home", "Apartments", "Super Habitation Complex", "Container"]),
