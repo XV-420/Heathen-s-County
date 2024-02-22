@@ -117,11 +117,18 @@ class Hut extends Building {
 class Farm extends Building {
     constructor(maxCount, names) {
         super(maxCount, names);
-        this.moneyProductionPerCultist = .01;
+        this.foodProductionPerCultist = .01;
     }
 
     Update(cultistManager) {
-        cultistManager.GrowFood(this.moneyProductionPerCultist);
+        super.Update();
+        cultistManager.GrowFood(this.foodProductionPerCultist);
+    }
+
+    //overide to change cost
+    Upgrade() {
+        super.Upgrade();
+        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
@@ -135,11 +142,18 @@ class TradingPost extends Building {
 class Mine extends Building {
     constructor(maxCount, names) {
         super(maxCount, names);
-        this.foodProductionPerCultist = .01;
+        this.moneyProductionPerCultist = .01;
     }
 
     Update(cultistManager) {
-        cultistManager.GrowMoney(this.foodProductionPerCultist);
+        super.Update();
+        cultistManager.GrowMoney(this.moneyProductionPerCultist);
+    }
+
+    //overide to change cost
+    Upgrade() {
+        super.Upgrade();
+        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
