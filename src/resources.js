@@ -64,11 +64,12 @@ class Food extends Resource {
 
 class CultistManager extends Resource {
     
-    constructor(name, faith, food) {
+    constructor(name, faith, food, money) {
         super(name);
         this.amount = 0;
         this.faith = faith; //reference to the Faith resource
         this.food = food;
+        this.money = money;
         this.cultists = [];
     }
 
@@ -93,6 +94,11 @@ class CultistManager extends Resource {
     GrowFood(num){
         this.food.amount += BUILDINGS.Farm.assignedCultists * num;
     }
+
+    GrowMoney(num){
+        this.money.amount += BUILDINGS.Mine.assignedCultists * num;
+    }
+
     //increase fath by one 
     AddFaith(){
         this.faith.amount+=1;
