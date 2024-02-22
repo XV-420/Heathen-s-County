@@ -155,6 +155,7 @@ class BuildingManager {
 
     churchButton;
     hutButton;
+    farmButton;
     mineButton;
     constructor(cultistManager, faith, money, food) { //additional resources
         this.cultistManager = cultistManager;
@@ -239,64 +240,66 @@ class BuildingManager {
 
 
         //+- for Farm
-        const fbutton = document.querySelector("#farm-button");
-        this.farmButton = new Button(fbutton, 5, () => {
-
-            BUILDINGS.Farm.hidden = false;
-            if (BUILDINGS.Farm.maxCount != BUILDINGS.Farm.amount) {
-                this.SubtractCosts(BUILDINGS.Farm.price);
-
-                console.log("clicked");
-                BUILDINGS.Farm.Buy();
-                this.CheckBuy();
-            }
-            this.CheckBuy();
-        });
-        this.farmButton.ChangeName(BUILDINGS.Farm.currentName)
-
-        const fplus = document.querySelector("#farm-button-plus");
-        this.farmPlusButton = new Button(fplus, 100, () => {
-            console.log("Farm plus clicked");
-            this.cultistManager.onClickPlusBuilding(BUILDINGS.Farm);
-            console.log("Farm Amount: " + BUILDINGS.Farm.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
-        });
-        const fminus = document.querySelector("#farm-button-minus");
-        this.farmMinusButton = new Button(fminus, 100, () => {
-            console.log("Farm Minus clicked");
-            this.cultistManager.onClickMinusBuilding(BUILDINGS.Farm);
-            console.log("Farm Amount: " + BUILDINGS.Farm.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
-        });
+        this.farmButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Farm, "farm");
+        this.farmPlusButton = this.CreatePlusButton("farm", BUILDINGS.Farm);
+        this.farmMinusButton = this.CreateMinusButton("farm", BUILDINGS.Farm);
 
         //+- for Mine
-        const mbutton = document.querySelector("#farm-button");
-        this.mineButton = new Button(mbutton, 5, () => {
+        this.mineButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Mine, "mine");
+        this.minePlusButton = this.CreatePlusButton("mine", BUILDINGS.Mine);
+        this.mineMinusButton = this.CreateMinusButton("mine", BUILDINGS.Mine);
 
-            BUILDINGS.Mine.hidden = false;
-            if (BUILDINGS.Mine.maxCount != BUILDINGS.Mine.amount) {
-                this.SubtractCosts(BUILDINGS.Mine.price);
+    }
+
+    CreateBuyAndUpgradeButton(building, buildingName) {
+        let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
+
+            building.hidden = false;
+            if (building.maxCount != building.amount) {
+                this.SubtractCosts(building.price);
 
                 console.log("clicked");
-                BUILDINGS.Mine.Buy();
+                building.Buy();
                 this.CheckBuy();
             }
             this.CheckBuy();
         });
-        this.mineButton.ChangeName(BUILDINGS.Mine.currentName)
 
-        const mplus = document.querySelector("#mine-button-plus");
-        this.minePlusButton = new Button(mplus, 100, () => {
-            console.log("Mine plus clicked");
-            this.cultistManager.onClickPlusBuilding(BUILDINGS.Mine);
-            console.log("Farm Amount: " + BUILDINGS.Farm.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists + " Mine Amount: " + BUILDINGS.Mine.assignedCultists);
-        });
-        const mminus = document.querySelector("#mine-button-minus");
-        this.mineMinusButton = new Button(mminus, 100, () => {
-            console.log("Mine Minus clicked");
-            this.cultistManager.onClickMinusBuilding(BUILDINGS.Mine);
-            console.log("Farm Amount: " + BUILDINGS.Farm.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists + " Mine Amount: " + BUILDINGS.Mine.assignedCultists);
-        });
+        button.ChangeName(building.currentName);
 
+        return button;
     }
+
+    CreatePlusButton(buildingName, building) {
+        const bplus = document.querySelector(`#${buildingName}-button-plus`);
+        let buildingPlusButton = new Button(bplus, 100, () => {
+            console.log(`${buildingName} plus clicked`);
+            this.cultistManager.onClickPlusBuilding(building);
+            console.log(`Farm Amount: ${BUILDINGS.Farm.assignedCultists} Hut Amount: ${BUILDINGS.Hut.assignedCultists} Church Amount: ${BUILDINGS.Church.assignedCultists} Mine Amount: ${BUILDINGS.Mine.assignedCultists}`);
+        });
+
+        return buildingPlusButton;
+    }
+
+    CreateMinusButton(buildingName, building) {
+        const bminus = document.querySelector(`#${buildingName}-button-minus`);
+        let buildingMinusButton = new Button(bminus, 100, () => {
+            console.log(`${buildingName} Minus clicked`);
+            this.cultistManager.onClickMinusBuilding(building);
+            console.log(`Farm Amount: ${BUILDINGS.Farm.assignedCultists} Hut Amount: ${BUILDINGS.Hut.assignedCultists} Church Amount: ${BUILDINGS.Church.assignedCultists} Mine Amount: ${BUILDINGS.Mine.assignedCultists}`);
+        });
+
+        return buildingMinusButton;
+    }
+
+    // CreateBuildingButtons(buildingName, building, buildingPlusButton, buildingMinusButton) {
+    //     let buildingButton = this.CreateBuyAndUpgradeButton(building, buildingName);
+
+    //     let buildingPlusButton = CreatePlusButton(buildingName, building);
+    //     let buildingMinusButton = CreateMinusButton(buildingName, building);
+
+    //     return buildingButton;
+    // }
 
     SubtractCosts(price) {
         this.faith.amount -= price.faith;
