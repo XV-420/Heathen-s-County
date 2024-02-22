@@ -110,6 +110,7 @@ class Hut extends Building {
     }
     Upgrade() {
         super.Upgrade();
+        this.price.faith *= 2;
         this.maxCount *= 2;
     }
 }
@@ -181,12 +182,12 @@ class BuildingManager {
         BUILDINGS.Church.price.faith = 10;
         BUILDINGS.Hut.price.money = 10;
         BUILDINGS.Hut.price.food = 10;
-        BUILDINGS.Farm.price.food = 10;
+        BUILDINGS.Farm.price.food = 100;
         BUILDINGS.Farm.money = 100;
-        BUILDINGS.Farm.faith = 1000;
+        BUILDINGS.Farm.faith = 100;
         BUILDINGS.Mine.price.food = 100;
         BUILDINGS.Mine.money = 100;
-        BUILDINGS.Mine.faith = 2000;
+        BUILDINGS.Mine.faith = 100;
         //more later
 
         //setupUI
@@ -210,6 +211,10 @@ class BuildingManager {
             //added  hut here for the name changing over time
             BUILDINGS.Hut.Upgrade();
             this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
+            BUILDINGS.Farm.Upgrade();
+            this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
+            BUILDINGS.Mine.Upgrade();
+            this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
         });
         this.churchButton.ChangeName(BUILDINGS.Church.currentName)
 
@@ -255,11 +260,13 @@ class BuildingManager {
 
         //+- for Farm
         this.farmButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Farm, "farm");
+        this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
         this.farmPlusButton = this.CreatePlusButton("farm", BUILDINGS.Farm);
         this.farmMinusButton = this.CreateMinusButton("farm", BUILDINGS.Farm);
 
         //+- for Mine
         this.mineButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Mine, "mine");
+        this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
         this.minePlusButton = this.CreatePlusButton("mine", BUILDINGS.Mine);
         this.mineMinusButton = this.CreateMinusButton("mine", BUILDINGS.Mine);
 
@@ -278,8 +285,6 @@ class BuildingManager {
             }
             this.CheckBuy();
         });
-
-        button.ChangeName(building.currentName);
 
         return button;
     }
@@ -332,11 +337,9 @@ class BuildingManager {
 
         //huts
         BUILDINGS.Hut.Update(this.cultistManager)
-        //mines
 
         //farms
         BUILDINGS.Farm.Update(this.cultistManager);
-        this.UIUpdate();
 
         //mines
         BUILDINGS.Mine.Update(this.cultistManager);
