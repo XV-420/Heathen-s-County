@@ -110,6 +110,7 @@ class Hut extends Building {
     }
     Upgrade() {
         super.Upgrade();
+        this.price.faith *= 2;
         this.maxCount *= 2;
     }
 }
@@ -121,7 +122,14 @@ class Farm extends Building {
     }
 
     Update(cultistManager) {
+        super.Update();
         cultistManager.GrowFood(this.foodProductionPerCultist);
+    }
+
+    //overide to change cost
+    Upgrade() {
+        super.Upgrade();
+        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
@@ -135,7 +143,18 @@ class TradingPost extends Building {
 class Mine extends Building {
     constructor(maxCount, names) {
         super(maxCount, names);
+        this.moneyProductionPerCultist = .01;
+    }
 
+    Update(cultistManager) {
+        super.Update();
+        cultistManager.GrowMoney(this.moneyProductionPerCultist);
+    }
+
+    //overide to change cost
+    Upgrade() {
+        super.Upgrade();
+        this.price.faith *= 2; //double faith cost for now //tmp
     }
 }
 
@@ -144,13 +163,15 @@ const BUILDINGS = {
     Farm: new Farm(3, ["Pen", "Farmstead", "Farms", "Slaughterhouses", "Butchery"]),
     TradingPost: new TradingPost(1, ["Shrine", "Chapel", "Church", "Temple", "ziggurat"]),
     Hut: new Hut(3, ["Hut", "Home", "Apartments", "Super Habitation Complex", "Container"]),
-    Mine: new Mine(3, ["Mine, Strip-Mine, Bank, Donation Center, Alms Collection Facility"])
+    Mine: new Mine(3, ["Mine", "Strip-Mine", "Bank", "Donation Center", "Alms Collection Facility"])
 }
 
 class BuildingManager {
 
     churchButton;
     hutButton;
+    farmButton;
+    mineButton;
     constructor(cultistManager, faith, money, food) { //additional resources
         this.cultistManager = cultistManager;
         this.faith = faith;
@@ -161,9 +182,12 @@ class BuildingManager {
         BUILDINGS.Church.price.faith = 10;
         BUILDINGS.Hut.price.money = 10;
         BUILDINGS.Hut.price.food = 10;
-        BUILDINGS.Farm.price.food = 10;
+        BUILDINGS.Farm.price.food = 100;
         BUILDINGS.Farm.money = 100;
-        BUILDINGS.Farm.faith = 1000;
+        BUILDINGS.Farm.faith = 100;
+        BUILDINGS.Mine.price.food = 100;
+        BUILDINGS.Mine.money = 100;
+        BUILDINGS.Mine.faith = 100;
         //more later
 
         //setupUI
@@ -187,6 +211,10 @@ class BuildingManager {
             //added  hut here for the name changing over time
             BUILDINGS.Hut.Upgrade();
             this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
+            BUILDINGS.Farm.Upgrade();
+            this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
+            BUILDINGS.Mine.Upgrade();
+            this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
         });
         this.churchButton.ChangeName(BUILDINGS.Church.currentName)
 
@@ -231,35 +259,66 @@ class BuildingManager {
 
 
         //+- for Farm
-        const fbutton = document.querySelector("#farm-button");
-        this.farmButton = new Button(fbutton, 5, () => {
+        this.farmButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Farm, "farm");
+        this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
+        this.farmPlusButton = this.CreatePlusButton("farm", BUILDINGS.Farm);
+        this.farmMinusButton = this.CreateMinusButton("farm", BUILDINGS.Farm);
 
-            BUILDINGS.Farm.hidden = false;
-            if (BUILDINGS.Farm.maxCount != BUILDINGS.Farm.amount) {
-                this.SubtractCosts(BUILDINGS.Farm.price);
+        //+- for Mine
+        this.mineButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Mine, "mine");
+        this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
+        this.minePlusButton = this.CreatePlusButton("mine", BUILDINGS.Mine);
+        this.mineMinusButton = this.CreateMinusButton("mine", BUILDINGS.Mine);
+
+    }
+
+    CreateBuyAndUpgradeButton(building, buildingName) {
+        let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
+
+            building.hidden = false;
+            if (building.maxCount != building.amount) {
+                this.SubtractCosts(building.price);
 
                 console.log("clicked");
-                BUILDINGS.Farm.Buy();
+                building.Buy();
                 this.CheckBuy();
             }
             this.CheckBuy();
         });
-        this.farmButton.ChangeName(BUILDINGS.Farm.currentName)
 
-        const fplus = document.querySelector("#farm-button-plus");
-        this.farmPlusButton = new Button(fplus, 100, () => {
-            console.log("Farm plus clicked");
-            this.cultistManager.onClickPlusBuilding(BUILDINGS.Farm);
-            console.log("Farm Amount: " + BUILDINGS.Farm.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
-        });
-        const fminus = document.querySelector("#farm-button-minus");
-        this.farmMinusButton = new Button(fminus, 100, () => {
-            console.log("Farm Minus clicked");
-            this.cultistManager.onClickMinusBuilding(BUILDINGS.Farm);
-            console.log("Farm Amount: " + BUILDINGS.Farm.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
-        });
-
+        return button;
     }
+
+    CreatePlusButton(buildingName, building) {
+        const bplus = document.querySelector(`#${buildingName}-button-plus`);
+        let buildingPlusButton = new Button(bplus, 100, () => {
+            console.log(`${buildingName} plus clicked`);
+            this.cultistManager.onClickPlusBuilding(building);
+            console.log(`Farm Amount: ${BUILDINGS.Farm.assignedCultists} Hut Amount: ${BUILDINGS.Hut.assignedCultists} Church Amount: ${BUILDINGS.Church.assignedCultists} Mine Amount: ${BUILDINGS.Mine.assignedCultists}`);
+        });
+
+        return buildingPlusButton;
+    }
+
+    CreateMinusButton(buildingName, building) {
+        const bminus = document.querySelector(`#${buildingName}-button-minus`);
+        let buildingMinusButton = new Button(bminus, 100, () => {
+            console.log(`${buildingName} Minus clicked`);
+            this.cultistManager.onClickMinusBuilding(building);
+            console.log(`Farm Amount: ${BUILDINGS.Farm.assignedCultists} Hut Amount: ${BUILDINGS.Hut.assignedCultists} Church Amount: ${BUILDINGS.Church.assignedCultists} Mine Amount: ${BUILDINGS.Mine.assignedCultists}`);
+        });
+
+        return buildingMinusButton;
+    }
+
+    // CreateBuildingButtons(buildingName, building, buildingPlusButton, buildingMinusButton) {
+    //     let buildingButton = this.CreateBuyAndUpgradeButton(building, buildingName);
+
+    //     let buildingPlusButton = CreatePlusButton(buildingName, building);
+    //     let buildingMinusButton = CreateMinusButton(buildingName, building);
+
+    //     return buildingButton;
+    // }
 
     SubtractCosts(price) {
         this.faith.amount -= price.faith;
@@ -278,10 +337,12 @@ class BuildingManager {
 
         //huts
         BUILDINGS.Hut.Update(this.cultistManager)
-        //mines
 
         //farms
         BUILDINGS.Farm.Update(this.cultistManager);
+
+        //mines
+        BUILDINGS.Mine.Update(this.cultistManager);
         this.UIUpdate();
     }
 
@@ -320,15 +381,23 @@ class BuildingManager {
         else
             this.farmMinusButton.Disable();
 
+        //mine minus
+        if (BUILDINGS.Mine.assignedCultists > 0)
+            this.mineMinusButton.Enable();
+        else
+            this.mineMinusButton.Disable();
 
-        //check church to determine if other buildings can be added to
+
+        //check hut to determine if other buildings can be added to
         if (BUILDINGS.Hut.assignedCultists != 0) {
             this.churchPlusButton.Enable();
             this.farmPlusButton.Enable();
+            this.minePlusButton.Enable();
         }
         else {
             this.churchPlusButton.Disable();
             this.farmPlusButton.Disable();
+            this.minePlusButton.Disable();
         }
 
         //others
@@ -350,12 +419,19 @@ class BuildingManager {
 
         else
             this.hutButton.Enable();
-
+        //farm
         if (BUILDINGS.Farm.price.money > this.money.amount && BUILDINGS.Farm.price.food > this.food.amount && BUILDINGS.Farm.price.faith > this.faith.amount || BUILDINGS.Hut.maxCount == BUILDINGS.Hut.amount)
             this.farmButton.Disable();
 
         else
             this.farmButton.Enable();
+
+        //mine
+        if (BUILDINGS.Mine.price.money > this.money.amount && BUILDINGS.Mine.price.food > this.food.amount && BUILDINGS.Mine.price.faith > this.faith.amount || BUILDINGS.Hut.maxCount == BUILDINGS.Hut.amount)
+            this.mineButton.Disable();
+
+        else
+            this.mineButton.Enable();
         //other buildings          
     }
 

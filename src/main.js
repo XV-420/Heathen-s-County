@@ -7,7 +7,7 @@ import * as buildings from "./buildings.js"
 let faith = new resources.Faith("Faith", 0, 1);
 let money = new resources.Money("Money", 3000, 1);
 let food = new resources.Food("Food", 3000, 1);
-let cultistManager = new resources.CultistManager("Cultists", faith, food);
+let cultistManager = new resources.CultistManager("Cultists", faith, food, money);
 
 
 //last as it takes in faith and cultist and other resources in the future
@@ -76,6 +76,7 @@ const init = () => {
       scoreOutput.innerHTML = cultistManager.amount;
       foodOutput.innerHTML = Math.round(food.amount);
       moneyOutput.innerHTML = Math.round(money.amount);
+
       if (cultistManager.amount == 0) {
          imgheart.src = "./assets/heart_static.png";
          GifRunning = false;
