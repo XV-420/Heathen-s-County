@@ -1,112 +1,152 @@
-
-.button_progress{
-    position: absolute;
-    height: 100%;
-    width:100%;
-    top: 0;
-    left: 0;
-    background-color: rgb(255, 255, 255);
-    z-index: -1;
+.button_progress {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  z-index: -1;
 }
 
-body{
-    /*display: flex;
+body {
+  /*display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     */
-    font-size: 200%;
-    margin: auto;
-    background-color:black ;
-    color: white;
+  font-size: 200%;
+  margin: auto;
+  background-color: black;
+  color: white;
 }
 
-button{
-    width: 20%;
-    padding:5%;
-    font-size: 200%;
-    width: fit-content;
-    max-height: 900px;
-    max-width: 900px;
-    position: relative;
-    cursor: pointer;
-    overflow: hidden; 
-    z-index: 1;
-    background-color: gray;
-    
+button {
+  width: 10px;
+  padding: 10px;
+  font-size: 200%;
+  width: fit-content;
+  max-height: 900px;
+  max-width: 900px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  background-color: gray;
 }
-#tab{
-    display: flex;
-    justify-content: center;
+#tab {
+  display: flex;
+  justify-content: center;
 }
 .tab {
-    font-size: 20px;
-    font-weight: bold;
-    width:fit-content;
-    padding: 10px 14px 10px 14px;
+  font-size: 20px;
+  font-weight: bold;
+  width: fit-content;
+  padding: 10px 14px 10px 14px;
 }
-#resources{
-    right: 0px;
-    display: inline;
-    top: 0px;
-    float: right;
-    position: relative;
-    border: 5px aliceblue solid;
+#resources {
+  right: 0px;
+  display: inline;
+  top: 0px;
+  float: right;
+  position: relative;
+  border: 5px aliceblue solid;
 }
-#button_holder{
-    display: flex;
-    justify-content: space-around;
+#button_holder {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
 }
-#testroom{
-    display: none;
+#testroom {
+  display: none;
 }
-canvas{
-    box-shadow: 1px -1px 20px 20px #497f1b;
-    left: 0px;
-    position:fixed;
+canvas {
+  box-shadow: 1px -1px 20px 20px #ffffff;
+  left: 0px;
+  position: fixed;
+  bottom: 0px;
 }
 @-webkit-keyframes hvr-pulse-grow {
-    to {
-      -webkit-transform: scale(1.1);
-      transform: scale(1.1);
-    }
+  to {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
   }
-  @keyframes hvr-pulse-grow {
-    to {
-      -webkit-transform: scale(1.1);
-      transform: scale(1.1);
-    }
+}
+@keyframes hvr-pulse-grow {
+  to {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
   }
-  .hvr-pulse-grow {
-    /*background-image: url(../assets/heart.gif);*/
-    display: inline-block;
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.hvr-pulse-grow {
+  /*background-image: url(../assets/heart.gif);*/
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.hvr-pulse-grow:hover,
+.hvr-pulse-grow:active {
+  -webkit-animation-name: hvr-pulse-grow;
+  animation-name: hvr-pulse-grow;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+@-webkit-keyframes hvr-push {
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
   }
-  .hvr-pulse-grow:hover,  .hvr-pulse-grow:active {
-    -webkit-animation-name: hvr-pulse-grow;
-    animation-name: hvr-pulse-grow;
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
-  #faith-button{
-    width: 20%;
-    padding:5%;
-    font-size: 200%;
-    width: fit-content;
-    max-height: 900px;
-    max-width: 900px;
-    position: relative;
-    cursor: pointer;
-    overflow: hidden; 
-    z-index: 1;
-    
+}
+@keyframes hvr-push {
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
   }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.hvr-push {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.hvr-push:active {
+  -webkit-animation-name: hvr-push;
+  animation-name: hvr-push;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+.button {
+  margin-top: 10px;
+}
+#layout {
+  display: flex;
+  justify-content: space-evenly;
+}
+#worktable {
+  display: flex;
+  flex-direction: column;
+}
+#addtochurch {
+  display: flex;
+}

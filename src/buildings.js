@@ -34,7 +34,6 @@ class Building {
     this.price.cultists = cultists;
   }
 
-
   //increases amount by one
   Buy() {
     this.amount++;
@@ -323,15 +322,6 @@ class BuildingManager {
 
     return buildingMinusButton;
   }
-
-  // CreateBuildingButtons(buildingName, building, buildingPlusButton, buildingMinusButton) {
-  //     let buildingButton = this.CreateBuyAndUpgradeButton(building, buildingName);
-
-  //     let buildingPlusButton = CreatePlusButton(buildingName, building);
-  //     let buildingMinusButton = CreateMinusButton(buildingName, building);
-
-  //     return buildingButton;
-  // }
 
   SubtractCosts(price) {
     this.faith.amount -= price.faith;

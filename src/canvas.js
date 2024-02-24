@@ -1,21 +1,17 @@
 let ctx;
 
-const init = () =>{  
+const init = () => {
+  let canvas = document.querySelector('canvas');
+  canvas.height = (window.innerHeight * 1) / 3;
+  canvas.width = window.innerWidth;
 
-    let canvas = document.querySelector("canvas");
-    canvas.height = window.innerHeight * 1/2;
-    canvas.width = window.innerWidth;
+  ctx = canvas.getContext('2d');
 
+  // C - all fill operations are now in red
+  ctx.fillStyle = 'black';
 
-    ctx = canvas.getContext("2d");
+  // D - fill a rectangle with the current fill color
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+};
 
-    // C - all fill operations are now in red
-    ctx.fillStyle = "green";
-
-    // D - fill a rectangle with the current fill color
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-}
-
-
-export {ctx, init}
+export { ctx, init };
