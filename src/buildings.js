@@ -201,7 +201,7 @@ class BuildingManager {
     //setup onclick to buy, then to upgrade if not hidden
 
     SetupUI() {
-        this.churchButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Church, "church",   () => {
+        this.churchButton = this.CreateBuyAndUpgradeButtonCustom(BUILDINGS.Church, "church",   () => {
             BUILDINGS.Hut.Upgrade();
             this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
             BUILDINGS.Farm.Upgrade();
@@ -266,7 +266,8 @@ class BuildingManager {
     }
 
 
-    CreateBuyAndUpgradeButton(building, buildingName, onclick) {
+    //defines custom onclick for the building on top of existing stuff
+    CreateBuyAndUpgradeButtonCustom(building, buildingName, onclick) {
         let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
 
             building.hidden = false;
