@@ -27,6 +27,13 @@ class Building {
         this.maxCount = _maxCount;
     };
 
+    SetPrice(faith = 0, money = 0, food = 0, cultists = 0) {
+        this.price.faith = faith;
+        this.price.money = money;
+        this.price.food = food;
+        this.price.cultists = cultists;
+    }
+
 
     //increases amount by one
     Buy() {
@@ -179,20 +186,13 @@ class BuildingManager {
         this.food = food;
 
         //setup price of the buildings
-        BUILDINGS.Church.price.faith = 10;
-        BUILDINGS.Hut.price.money = 10;
-        BUILDINGS.Hut.price.food = 10;
-        BUILDINGS.Farm.price.food = 100;
-        BUILDINGS.Farm.money = 100;
-        BUILDINGS.Farm.faith = 100;
-        BUILDINGS.Mine.price.food = 100;
-        BUILDINGS.Mine.money = 100;
-        BUILDINGS.Mine.faith = 100;
-        //more later
-
+        BUILDINGS.Church.SetPrice(10);
+        BUILDINGS.Hut.SetPrice(0,10,10);
+        BUILDINGS.Farm.SetPrice(100,100,100);
+        BUILDINGS.Mine.SetPrice(100,100,100);
+        
         //setupUI
         this.SetupUI();
-
     }
 
 
@@ -201,36 +201,19 @@ class BuildingManager {
     //setup onclick to buy, then to upgrade if not hidden
 
     SetupUI() {
-        const cbutton = document.querySelector("#church-button");
-        this.churchButton = new Button(cbutton, 5, () => {
-            BUILDINGS.Church.hidden = false;
-            this.SubtractCosts(BUILDINGS.Church.price);
-            BUILDINGS.Church.Upgrade();
-            console.log("clicked");
-            this.churchButton.ChangeName(BUILDINGS.Church.currentName);
-            //added  hut here for the name changing over time
+        this.churchButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Church, "church",   () => {
             BUILDINGS.Hut.Upgrade();
             this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
             BUILDINGS.Farm.Upgrade();
             this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
             BUILDINGS.Mine.Upgrade();
             this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
-        });
-        this.churchButton.ChangeName(BUILDINGS.Church.currentName)
+        });  
+        this.churchButton.ChangeName(BUILDINGS.Church.currentName);
+        this.churchPlusButton = this.CreatePlusButton("church", BUILDINGS.Church);
+        this.churchMinusButton = this.CreateMinusButton("church", BUILDINGS.Church);
 
-        //+ for church
-        const cplus = document.querySelector("#church-button-plus");
-        this.churchPlusButton = new Button(cplus, 100, () => {
-            console.log("church plus clicked");
-            this.cultistManager.onClickPlusBuilding(BUILDINGS.Church);
-            console.log("Church Amount: " + BUILDINGS.Church.assignedCultists);
-        });
-        const cminus = document.querySelector("#church-button-minus");
-        this.churchMinusButton = new Button(cminus, 100, () => {
-            console.log("Church Minus clicked");
-            this.cultistManager.onClickMinusBuilding(BUILDINGS.Church);
-            console.log("Church Amount: " + BUILDINGS.Church.assignedCultists + " Hut Amount: " + BUILDINGS.Hut.assignedCultists);
-        });
+
 
 
         //hut
@@ -240,8 +223,6 @@ class BuildingManager {
             BUILDINGS.Hut.hidden = false;
             if (BUILDINGS.Hut.maxCount != BUILDINGS.Hut.amount) {
                 this.SubtractCosts(BUILDINGS.Hut.price);
-
-                console.log("clicked");
                 BUILDINGS.Hut.Buy();
                 this.CheckBuy();
             }
@@ -278,14 +259,23 @@ class BuildingManager {
             building.hidden = false;
             if (building.maxCount != building.amount) {
                 this.SubtractCosts(building.price);
-
-                console.log("clicked");
                 building.Buy();
-                this.CheckBuy();
             }
-            this.CheckBuy();
         });
+        return button;
+    }
 
+
+    CreateBuyAndUpgradeButton(building, buildingName, onclick) {
+        let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
+
+            building.hidden = false;
+            if (building.maxCount != building.amount) {
+                this.SubtractCosts(building.price);
+                building.Buy();
+                onclick();
+            }
+        });
         return button;
     }
 
