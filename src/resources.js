@@ -141,7 +141,22 @@ class CultistManager extends Resource {
     KillCultists(){
         if(this.cultists.length > 0){
             //priority remove in order of buildings
-            
+         /*   if(BUILDINGS.Hut.assignedCultists > 0){
+                this.cultists.splice(randNum, 1);
+                this.amount = this.cultists.length; //update amount
+                BUILDINGS.Hut.RemoveCultist();
+            }
+            else if(BUILDINGS.Church.assignedCultists > 0){
+                this.cultists.splice(randNum, 1);
+                this.amount = this.cultists.length; //update amount
+                BUILDINGS.Hut.RemoveCultist();
+            }
+            else if(){
+
+            }
+            else{
+
+            }*/
         }
     }
 
