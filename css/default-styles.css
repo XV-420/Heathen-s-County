@@ -179,3 +179,6 @@ button:hover span {
 #worktable .hide {
   display: none;
 }
+.amounts {
+  margin-left: 10px;
+}
