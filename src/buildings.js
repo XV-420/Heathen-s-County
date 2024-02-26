@@ -246,6 +246,8 @@ class BuildingManager {
       this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
       BUILDINGS.Mine.Upgrade();
       this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
+      BUILDINGS.Church.Upgrade();
+      this.churchButton.ChangeName(BUILDINGS.Church.currentName);
     });
     this.churchButton.ChangeName(BUILDINGS.Church.currentName);
     this.churchPlusButton = this.CreatePlusButton('church', BUILDINGS.Church);
