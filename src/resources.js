@@ -71,6 +71,7 @@ class CultistManager extends Resource {
         this.food = food;
         this.money = money;
         this.cultists = [];
+        this.cultistFoodDrain = .005;
     }
 
     //add a cultist to the array
@@ -89,6 +90,18 @@ class CultistManager extends Resource {
         if(this.cultists.length > 0)
             //just use the passive faith generation of the first cultist in the array for now
             this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists; 
+    }
+
+    FeedCutists(){
+        this.food.amount -= this.amount * this.cultistFoodDrain;
+        
+        if(this.food.amount <= 0){
+            this.food.amount = 0;
+            
+            //remove cultist and feed
+
+        }
+
     }
 
     GrowFood(num){
@@ -122,6 +135,13 @@ class CultistManager extends Resource {
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
             BUILDINGS.Hut.RemoveCultist();
+        }
+    }
+
+    KillCultists(){
+        if(this.cultists.length > 0){
+            //priority remove in order of buildings
+            
         }
     }
 
