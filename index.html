@@ -11,7 +11,7 @@
 <body>
     <ul>
         <div id="main">
-            <div id=tab><button id="cult-tab" class="tab">CULT</button><button id="test-tab" class="tab">TEST</button>
+            <div id=tab><button id="cult-tab" class="tab">Cult</button><button id="test-tab" class="tab">Shop</button>
             </div>
             <div id="mainroom">
                 <div id="resources">
@@ -24,28 +24,53 @@
                     </ul>
                 </div>
                 <br>
+                <div id="layout">
                 <div id="button_holder">
-                    <button type="button" id="pray-button" class="button">
+                    <button type="button" id="pray-button" class="button hvr-push">
                         <!--<div class="button_progress"></div>--->
                         PRAY
                 
                     </button>
-                <button type="button" id = "recruit-button" class = "button">
+                    <button type="button" id = "faith-button" class = "button hvr-push">
+                        <!--<div class="button_progress"></div>--->
+                        FAITH
+                        
+                    </button>
+                <button type="button" id = "recruit-button" class = "button hvr-push">
                     <!--<div class="button_progress"></div>--->
                     RECRUIT
                     
                 </button>
-                <img type="button" id = "faith-button" class="hvr-pulse-grow" src="assets/heartgif.gif">
+                <!---<img type="button" id = "faith-button" class="hvr-pulse-grow " src="assets/heartgif.gif">--->
+                
                 
                     <!--<div class="button_progress"></div>--->
                     <!--SACRIFICE--->
-                </img>
+                
                 </div>
+                <div id="worktable">
+                    <div>
+                    <!--<button type="button" id = "hut-button-plus" class = "button">Hut+</button>-->
+                </div>
+                <div id="addtochurch">
+                    <button type="button" id = "church-button-plus" class = "button">Church+</button>
+                    <button type="button" id="church-button-minus" class="button">Church-</button>
+                </div>
+                <div>
+                    <button type="button" id = "farm-button-plus" class = "button">Farm+</button>
+                    <button type="button" id="farm-button-minus" class="button">Farm-</button>
+                </div>
+                <div>
+                    <button type="button" id = "mine-button-plus" class = "button">Mine+</button>
+                    <button type="button" id="mine-button-minus" class="button">Mine-</button>
+                </div>
+                </div>
+            </div>
                 <br>
-                <canvas width="800" height="700"></canvas>
+               
                 </div>
                 <div id="testroom">
-                    <h1>Test Room</h1>
+                    <h1>Shop Room</h1>
                 
                     <button type="button" id = "church-button" class = "button"></button>
                     <button type="button" id="hut-button" class="button"></button>
@@ -55,15 +80,10 @@
 
 
                     <!--PLUS MINUS FOR EACH BUILDING: in testroom as it has less stuff-->
-                    <button type="button" id = "hut-button-plus" class = "button">Hut+</button>
-                    <button type="button" id = "church-button-plus" class = "button">Church+</button>
-                    <button type="button" id="church-button-minus" class="button">Church-</button>
-                    <button type="button" id = "farm-button-plus" class = "button">Farm+</button>
-                    <button type="button" id="farm-button-minus" class="button">Farm-</button>
-                    <button type="button" id = "mine-button-plus" class = "button">Mine+</button>
-                    <button type="button" id="mine-button-minus" class="button">Mine-</button>
+                    
                 </div>
                 </ul>
+                <canvas width="800" height="200"></canvas>
 </body>
 
 </html>
