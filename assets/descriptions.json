@@ -10,5 +10,9 @@
             "Here, we show devotion to the only cause that matters. \nGreatly increases Faith generation.",
             "Discard thy Humanity, We serve a Higher Purpose. \nMassive Food generation."],
         "Mine": ["A mine, to harvest materials. \nPassively generates money.",
-                ""]
+                "A strip-mine, for more efficient production. \nIncreases Money generation.",
+                "All for one and one for all. \nFurther increases Money generattion.",
+                "You do not need belongings; We will provide. \nGreatly increases Money generation.",
+                "Everything has a value. You are no exception. \nMassive Money generation."],
+        "Hut": [""]
 }
