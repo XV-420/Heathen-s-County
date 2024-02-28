@@ -91,6 +91,10 @@ class Church extends Building {
     super.Upgrade();
     this.price.faith *= 2; //double faith cost for now //tmp
   }
+
+  Buy(){
+    //haha this does nothing
+  }
 }
 
 class Hut extends Building {
@@ -141,7 +145,7 @@ class Farm extends Building {
 
   Update(cultistManager) {
     super.Update();
-    cultistManager.GrowFood(this.foodProductionPerCultist);
+    cultistManager.GrowFood(this.foodProductionPerCultist * this.amount * this.level);
   }
 
   //overide to change cost
@@ -165,7 +169,7 @@ class Mine extends Building {
 
   Update(cultistManager) {
     super.Update();
-    cultistManager.GrowMoney(this.moneyProductionPerCultist);
+    cultistManager.GrowMoney(this.moneyProductionPerCultist * this.amount * this.level);
   }
 
   //overide to change cost
@@ -176,7 +180,7 @@ class Mine extends Building {
 }
 
 const BUILDINGS = {
-  Church: new Church(1, ['Shrine', 'Chapel', 'Church', 'Temple', 'Ziggurat']),
+  Church: new Church(5, ['Shrine', 'Chapel', 'Church', 'Temple', 'Ziggurat']),
   Farm: new Farm(3, [
     'Pen',
     'Farmstead',
@@ -220,7 +224,7 @@ class BuildingManager {
     this.food = food;
 
     //setup price of the buildings
-    BUILDINGS.Church.SetPrice(10);
+    BUILDINGS.Church.SetPrice(10, 0, 0);
     BUILDINGS.Hut.SetPrice(0, 10, 10);
     BUILDINGS.Farm.SetPrice(100, 100, 100);
     BUILDINGS.Mine.SetPrice(100, 100, 100);
@@ -298,7 +302,7 @@ class BuildingManager {
 
 
   //defines custom onclick for the building on top of existing stuff
-  CreateBuyAndUpgradeButtonCustom(building, buildingName, onclick) {
+  CreateBuyAndUpgradeButtonCustom(building, buildingName, onclick, church) {
     let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
 
       building.hidden = false;

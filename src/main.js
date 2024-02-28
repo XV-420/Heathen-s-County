@@ -77,6 +77,7 @@ const init = () => {
 
     prayButton.update();
     buildingManager.Update();
+    cultistManager.Update();
 
     faithOutput.innerHTML = Math.round(faith.amount);
     scoreOutput.innerHTML = cultistManager.amount;
