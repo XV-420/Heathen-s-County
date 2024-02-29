@@ -51,6 +51,9 @@ class Building {
   //increases amount by one
   Buy() {
     this.amount++;
+    this.price.faith *= this.priceScaler;
+    this.price.food *= this.priceScaler;
+    this.price.money *= this.priceScaler;
   }
 
   //upgrades the building and updates its name
@@ -59,9 +62,6 @@ class Building {
     if (this.level > this.maxLevel) this.level = this.maxLevel;
     this.currentName = this.names[this.level];
     console.log('upgrade ' + this.currentName);
-    this.price.faith *= this.priceScaler;
-    this.price.food *= this.priceScaler;
-    this.price.money *= this.priceScaler;
   }
 
   //assign a cultist from this building
@@ -144,17 +144,21 @@ class Hut extends Building {
 class Farm extends Building {
   constructor(maxCount, names) {
     super(maxCount, names);
-    this.foodProductionPerCultist = (1.5)/60;
+    this.foodProductionPerCultist = .1;
   }
 
   Update(cultistManager) {
     super.Update();
-    cultistManager.GrowFood(this.foodProductionPerCultist * this.amount * this.level);
+    cultistManager.GrowFood(this.foodProductionPerCultist);
   }
-
+  Buy(){
+    super.Buy();
+    this.foodProductionPerCultist *=2;
+  }
   //overide to change cost
   Upgrade() {
     super.Upgrade();
+    this.foodProductionPerCultist += .1;
   }
 }
 

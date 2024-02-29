@@ -3,9 +3,9 @@ import { Button } from './button.js';
 import * as resources from './resources.js';
 import * as buildings from './buildings.js';
 
-let faith = new resources.Faith('Faith', 100000000, 1);
-let money = new resources.Money('Money', 10000000, 1);
-let food = new resources.Food('Food', 10000000, 1);
+let faith = new resources.Faith('Faith', 0, 1);
+let money = new resources.Money('Money', 10, 1);
+let food = new resources.Food('Food', 10, 1);
 let cultistManager = new resources.CultistManager(
   'Cultists',
   faith,
