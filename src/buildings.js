@@ -18,13 +18,13 @@ class Building {
     Object.keys(this.price);
     Object.assign(this.price, PRICE);
 
-    this.hidden = true; //make all the buildings up front, and hide the ones that 
+    this.hidden = true; //make all the buildings up front, and hide the ones that
     this.names = _names;
     this.currentName = this.names[0];
     this.maxLevel = 4;
     this.amount = 0;
     this.maxCount = _maxCount;
-  };
+  }
 
   SetPrice(faith = 0, money = 0, food = 0, cultists = 0) {
     this.price.faith = faith;
@@ -34,13 +34,15 @@ class Building {
   }
 
   //checks the price vs the amount of the resouce they have
-  CheckPrice(faith, food, money){
-    if((this.price.faith > faith.amount ||
-      this.price.money > money.amount || 
-      this.price.food > food.amount) || 
-      this.maxCount == this.amount){       
-        return true;
-      }
+  CheckPrice(faith, food, money) {
+    if (
+      this.price.faith > faith.amount ||
+      this.price.money > money.amount ||
+      this.price.food > food.amount ||
+      this.maxCount == this.amount
+    ) {
+      return true;
+    }
 
     return false;
   }
@@ -233,33 +235,34 @@ class BuildingManager {
     this.SetupUI();
   }
 
-
   //get and setup the UI elements
   //1 button per building(5)
   //setup onclick to buy, then to upgrade if not hidden
 
   SetupUI() {
-
     //church button
-    this.churchButton = this.CreateBuyAndUpgradeButtonCustom(BUILDINGS.Church, 'church', () => {
-
-      //added  hut here for the name changing over time
-      BUILDINGS.Hut.Upgrade();
-      this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
-      BUILDINGS.Farm.Upgrade();
-      this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
-      BUILDINGS.Mine.Upgrade();
-      this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
-      BUILDINGS.Church.Upgrade();
-      this.churchButton.ChangeName(BUILDINGS.Church.currentName);
-    });
+    this.churchButton = this.CreateBuyAndUpgradeButtonCustom(
+      BUILDINGS.Church,
+      'church',
+      () => {
+        //added  hut here for the name changing over time
+        BUILDINGS.Hut.Upgrade();
+        this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
+        BUILDINGS.Farm.Upgrade();
+        this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
+        BUILDINGS.Mine.Upgrade();
+        this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
+        BUILDINGS.Church.Upgrade();
+        this.churchButton.ChangeName(BUILDINGS.Church.currentName);
+      }
+    );
     this.churchButton.ChangeName(BUILDINGS.Church.currentName);
     this.churchPlusButton = this.CreatePlusButton('church', BUILDINGS.Church);
     this.churchMinusButton = this.CreateMinusButton('church', BUILDINGS.Church);
 
     //hut
     this.hutButton = this.CreateBuyAndUpgradeButton(BUILDINGS.Hut, 'hut');
-    this.hutButton.ChangeName(BUILDINGS.Hut.currentName)
+    this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
 
     /*
     //+ for hut its custom so doesn't use the method
@@ -289,29 +292,34 @@ class BuildingManager {
   }
 
   CreateBuyAndUpgradeButton(building, buildingName) {
-    let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
-
-      building.hidden = false;
-      if (building.maxCount != building.amount) {
-        this.SubtractCosts(building.price);
-        building.Buy();
+    let button = new Button(
+      document.querySelector(`#${buildingName}-button`),
+      5,
+      () => {
+        building.hidden = false;
+        if (building.maxCount != building.amount) {
+          this.SubtractCosts(building.price);
+          building.Buy();
+        }
       }
-    });
+    );
     return button;
   }
 
-
   //defines custom onclick for the building on top of existing stuff
-  CreateBuyAndUpgradeButtonCustom(building, buildingName, onclick, church) {
-    let button = new Button(document.querySelector(`#${buildingName}-button`), 5, () => {
-
-      building.hidden = false;
-      if (building.maxCount != building.amount) {
-        this.SubtractCosts(building.price);
-        building.Buy();
-        onclick();
+  CreateBuyAndUpgradeButtonCustom(building, buildingName, onclick) {
+    let button = new Button(
+      document.querySelector(`#${buildingName}-button`),
+      5,
+      () => {
+        building.hidden = false;
+        if (building.maxCount != building.amount) {
+          this.SubtractCosts(building.price);
+          building.Buy();
+          onclick();
+        }
       }
-    });
+    );
     return button;
   }
 
@@ -369,6 +377,7 @@ class BuildingManager {
 
   //updates all the buttons
   UIUpdate() {
+    this.CheckLevels();
     this.CheckBuy();
     this.CheckCultistAmounts();
   }
@@ -409,6 +418,14 @@ class BuildingManager {
       this.farmPlusButton.Disable();
       this.minePlusButton.Disable();
     }
+    document.querySelector('#church-amount').textContent =
+      BUILDINGS.Church.assignedCultists;
+    document.querySelector('#farm-amount').textContent =
+      BUILDINGS.Farm.assignedCultists;
+    document.querySelector('#mine-amount').textContent =
+      BUILDINGS.Mine.assignedCultists;
+    document.querySelector('#cultist-amount').textContent =
+      BUILDINGS.Hut.assignedCultists;
   }
 
   //check if they can buy it
@@ -423,7 +440,7 @@ class BuildingManager {
     if (BUILDINGS.Hut.CheckPrice(this.faith, this.food, this.money))
       this.hutButton.Disable();
     else this.hutButton.Enable();
-    
+
     //farm
     if (BUILDINGS.Farm.CheckPrice(this.faith, this.food, this.money))
       this.farmButton.Disable();
@@ -433,11 +450,31 @@ class BuildingManager {
     if (BUILDINGS.Mine.CheckPrice(this.faith, this.food, this.money))
       this.mineButton.Disable();
     else this.mineButton.Enable();
+    document.querySelector(
+      '#farm-price'
+    ).textContent = `Food:${BUILDINGS.Farm.price.food} Money:${BUILDINGS.Farm.price.money}`;
   }
 
   //Should maybe be refactored into something that can get the level of any building
   CheckChurchLevel() {
     return BUILDINGS.Church.level;
+  }
+
+  CheckLevels() {
+    if (BUILDINGS.Church.level > 0 && BUILDINGS.Hut.amount != 0) {
+      document.querySelector('#addtochurch').className = '';
+      document.querySelector('#cultistnumber').className = '';
+    }
+
+    if (BUILDINGS.Farm.level > 0 && BUILDINGS.Hut.amount != 0) {
+      document.querySelector('#Farms').className = '';
+      document.querySelector('#cultistnumber').className = '';
+    }
+
+    if (BUILDINGS.Mine.level > 0 && BUILDINGS.Hut.amount != 0) {
+      document.querySelector('#Mines').className = '';
+      document.querySelector('#cultistnumber').className = '';
+    }
   }
 }
 

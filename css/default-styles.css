@@ -23,7 +23,7 @@ body {
 button {
   width: 10px;
   padding: 10px;
-  font-size: 200%;
+  font-size: 70px;
   width: fit-content;
   max-height: 900px;
   max-width: 900px;
@@ -149,4 +149,36 @@ canvas {
 }
 #addtochurch {
   display: flex;
+}
+#pray-button:hover before {
+  content: 'PRAY 🤲';
+}
+#pray-button:hover:before {
+  content: 'PRAY🙏';
+}
+button:hover span {
+  display: none;
+}
+
+#worktable {
+  font-size: 30px;
+}
+#worktable div {
+  display: flex;
+  justify-content: flex-end;
+}
+#worktable div button {
+  padding: 0px;
+  margin-left: 10px;
+  align-self: baseline;
+  font-size: 50px;
+}
+.hide {
+  display: none;
+}
+#worktable .hide {
+  display: none;
+}
+.amounts {
+  margin-left: 10px;
 }

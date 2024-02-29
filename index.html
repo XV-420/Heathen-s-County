@@ -28,17 +28,17 @@
                 <div id="button_holder">
                     <button type="button" id="pray-button" class="button hvr-push">
                         <!--<div class="button_progress"></div>--->
-                        PRAY
+                        <span>PRAY 🤲</span>
                 
                     </button>
-                    <button type="button" id = "faith-button" class = "button hvr-push">
+                    <button type="button" id = "sacrifice-button" class = "button hvr-push">
                         <!--<div class="button_progress"></div>--->
-                        FAITH
+                        sacrifice
                         
                     </button>
-                <button type="button" id = "recruit-button" class = "button hvr-push">
+                <button type="button" id = "gather-button" class = "button hvr-push">
                     <!--<div class="button_progress"></div>--->
-                    RECRUIT
+                    GATHER
                     
                 </button>
                 <!---<img type="button" id = "faith-button" class="hvr-pulse-grow " src="assets/heartgif.gif">--->
@@ -49,20 +49,30 @@
                 
                 </div>
                 <div id="worktable">
-                    <div>
+                    <!--
+                    <div>-->
                     <!--<button type="button" id = "hut-button-plus" class = "button">Hut+</button>-->
+                <!--</div>-->
+                <div id="cultistnumber" class="hide">
+                    <p id="cultist-amount"></p>
                 </div>
-                <div id="addtochurch">
-                    <button type="button" id = "church-button-plus" class = "button">Church+</button>
-                    <button type="button" id="church-button-minus" class="button">Church-</button>
+                <div id="addtochurch" class="hide">
+                    <p>Church</p>
+                    <p id="church-amount" class="amounts"> 0 </p>
+                    <button type="button" id = "church-button-plus" class = "button">+</button>
+                    <button type="button" id="church-button-minus" class="button">-</button>
                 </div>
-                <div>
-                    <button type="button" id = "farm-button-plus" class = "button">Farm+</button>
-                    <button type="button" id="farm-button-minus" class="button">Farm-</button>
+                <div id="Farms"  class="hide">
+                    <p>Farm</p>
+                    <p id="farm-amount" class="amounts"></p>
+                    <button type="button" id = "farm-button-plus" class = "button">+</button>
+                    <button type="button" id="farm-button-minus" class="button">-</button>
                 </div>
-                <div>
-                    <button type="button" id = "mine-button-plus" class = "button">Mine+</button>
-                    <button type="button" id="mine-button-minus" class="button">Mine-</button>
+                <div id="Mines" class="hide"> 
+                    <p>Mine</p>
+                    <p id="mine-amount" class="amounts"></p>
+                    <button type="button" id = "mine-button-plus" class = "button">+</button>
+                    <button type="button" id="mine-button-minus" class="button">-</button>
                 </div>
                 </div>
             </div>
@@ -71,12 +81,22 @@
                 </div>
                 <div id="testroom">
                     <h1>Shop Room</h1>
-                
+                    <div>
                     <button type="button" id = "church-button" class = "button"></button>
+                    
+                    </div>
+                    <div>
                     <button type="button" id="hut-button" class="button"></button>
+                    </div>
+                    <div>
                     <button type="button" id="farm-button" class="button"></button>
+                    <div id="farm-price">  food:100
+                        money: 100</div>
+                  
+                    </div>
+                    <div>
                     <button type="button" id="mine-button" class="button"></button>
-
+                    </div>
 
 
                     <!--PLUS MINUS FOR EACH BUILDING: in testroom as it has less stuff-->
