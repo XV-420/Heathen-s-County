@@ -71,7 +71,7 @@ class CultistManager extends Resource {
         this.food = food;
         this.money = money;
         this.cultists = [];
-        this.cultistFoodDrain = .005;
+        this.cultistFoodDrain = 1/60;
     }
 
     //add a cultist to the array

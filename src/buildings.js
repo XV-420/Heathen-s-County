@@ -24,6 +24,7 @@ class Building {
     this.maxLevel = 4;
     this.amount = 0;
     this.maxCount = _maxCount;
+    this.priceScaler = 20;
   }
 
   SetPrice(faith = 0, money = 0, food = 0, cultists = 0) {
@@ -58,6 +59,9 @@ class Building {
     if (this.level > this.maxLevel) this.level = this.maxLevel;
     this.currentName = this.names[this.level];
     console.log('upgrade ' + this.currentName);
+    this.price.faith *= this.priceScaler;
+    this.price.food *= this.priceScaler;
+    this.price.money *= this.priceScaler;
   }
 
   //assign a cultist from this building
@@ -91,7 +95,6 @@ class Church extends Building {
   //overide to change cost
   Upgrade() {
     super.Upgrade();
-    this.price.faith *= 2; //double faith cost for now //tmp
   }
 
   Buy(){
@@ -134,7 +137,6 @@ class Hut extends Building {
   }
   Upgrade() {
     super.Upgrade();
-    this.price.faith *= 2;
     this.maxCount *= 2;
   }
 }
@@ -142,7 +144,7 @@ class Hut extends Building {
 class Farm extends Building {
   constructor(maxCount, names) {
     super(maxCount, names);
-    this.foodProductionPerCultist = 0.01;
+    this.foodProductionPerCultist = (1.5)/60;
   }
 
   Update(cultistManager) {
@@ -153,7 +155,6 @@ class Farm extends Building {
   //overide to change cost
   Upgrade() {
     super.Upgrade();
-    this.price.faith *= 2; //double faith cost for now //tmp
   }
 }
 
@@ -177,7 +178,6 @@ class Mine extends Building {
   //overide to change cost
   Upgrade() {
     super.Upgrade();
-    this.price.faith *= 2; //double faith cost for now //tmp
   }
 }
 
