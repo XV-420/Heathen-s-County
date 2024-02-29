@@ -414,6 +414,14 @@ class BuildingManager {
       this.farmPlusButton.Disable();
       this.minePlusButton.Disable();
     }
+    document.querySelector('#church-amount').textContent =
+      BUILDINGS.Church.assignedCultists;
+    document.querySelector('#farm-amount').textContent =
+      BUILDINGS.Farm.assignedCultists;
+    document.querySelector('#mine-amount').textContent =
+      BUILDINGS.Mine.assignedCultists;
+    document.querySelector('#cultist-amount').textContent =
+      BUILDINGS.Hut.assignedCultists;
   }
 
   //check if they can buy it
@@ -438,6 +446,9 @@ class BuildingManager {
     if (BUILDINGS.Mine.CheckPrice(this.faith, this.food, this.money))
       this.mineButton.Disable();
     else this.mineButton.Enable();
+    document.querySelector(
+      '#farm-price'
+    ).textContent = `Food:${BUILDINGS.Farm.price.food} Money:${BUILDINGS.Farm.price.money}`;
   }
 
   //Should maybe be refactored into something that can get the level of any building
@@ -448,14 +459,17 @@ class BuildingManager {
   CheckLevels() {
     if (BUILDINGS.Church.level > 0 && BUILDINGS.Hut.amount != 0) {
       document.querySelector('#addtochurch').className = '';
+      document.querySelector('#cultistnumber').className = '';
     }
 
     if (BUILDINGS.Farm.level > 0 && BUILDINGS.Hut.amount != 0) {
-      document.querySelector('#addtochurch').className = '';
+      document.querySelector('#Farms').className = '';
+      document.querySelector('#cultistnumber').className = '';
     }
 
     if (BUILDINGS.Mine.level > 0 && BUILDINGS.Hut.amount != 0) {
-      document.querySelector('#addtochurch').className = '';
+      document.querySelector('#Mines').className = '';
+      document.querySelector('#cultistnumber').className = '';
     }
   }
 }
