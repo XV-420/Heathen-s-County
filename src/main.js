@@ -34,8 +34,6 @@ const init = () => {
   let imgheart = document.querySelector('.hvr-pulse-grow');
   //for now buttons update here
   const onclickGather = () => {
-    // score++;
-    // scoreOutput.innerHTML = score;
     let chance = Math.random(0, 1) * 100;
     if (chance < 48) {
       money.amount += 10;
@@ -43,9 +41,14 @@ const init = () => {
     } else if (chance < 96) {
       food.amount += 10;
       //foodOutputt.innerHTML = food.amount;
-    } else {
+    } else if(buildingManager.CheckHutOccupancy() < cultistManager.amount){
       cultistManager.AddCultist();
-      scoreOutput.innerHTML = cultistManager.amount;
+      cultistOutput.innerHTML = cultistManager.amount;
+    }
+    else{
+      money.amount+=5;
+      moneyOutput.innerHTML = money.amount;
+      food.amount+=5;
     }
   };
 
