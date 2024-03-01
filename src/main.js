@@ -64,9 +64,15 @@ const init = () => {
     faith.amount++;
   };
 
+
+  let elapsedTime = 0;
+  let prevTime = 0;
   const loop = () => {
     setTimeout(loop, 1000 / 60);
-
+    let time = Date.now();
+    time = time/1000;
+    elapsedTime += time - prevTime;
+    prevTime = time;
     //TODO: move this out of main when refactoring
     //Unlock Recruit when church is level 1 or higher
     if (buildingManager.CheckChurchLevel() >= 1) {
@@ -83,10 +89,15 @@ const init = () => {
     } else {
       sacrificeButton.Disable();
     }
-
     prayButton.update();
-    buildingManager.Update();
-    cultistManager.Update();
+    buildingManager.UIUpdate();
+
+    if(elapsedTime > 1)
+    {
+      elapsedTime = 0;
+      buildingManager.Update();
+      cultistManager.Update();
+    }
 
     faithOutput.innerHTML = Math.round(faith.amount);
     scoreOutput.innerHTML = cultistManager.amount;
