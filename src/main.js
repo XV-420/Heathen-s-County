@@ -22,7 +22,7 @@ const buildingManager = new buildings.BuildingManager(
 );
 
 const init = () => {
-  let scoreOutput = document.querySelector('#cultists');
+  let cultistOutput = document.querySelector('#cultists');
   let faithOutput = document.querySelector('#faith');
   let foodOutput = document.querySelector('#food');
   let moneyOutput = document.querySelector('#money');
@@ -100,7 +100,7 @@ const init = () => {
     }
 
     faithOutput.innerHTML = Math.round(faith.amount);
-    scoreOutput.innerHTML = cultistManager.amount;
+    cultistOutput.innerHTML = `${cultistManager.amount}/${buildingManager.CheckHutOccupancy()}`;
     foodOutput.innerHTML = Math.round(food.amount);
     moneyOutput.innerHTML = Math.round(money.amount);
 

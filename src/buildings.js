@@ -468,6 +468,10 @@ class BuildingManager {
     return BUILDINGS.Church.level;
   }
 
+  CheckHutOccupancy(){
+    return BUILDINGS.Hut.occupency;
+  }
+
   CheckLevels() {
     if (BUILDINGS.Church.level > 0 && BUILDINGS.Hut.amount != 0) {
       document.querySelector('#addtochurch').className = '';
