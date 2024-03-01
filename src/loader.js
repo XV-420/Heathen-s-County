@@ -1,8 +1,8 @@
 import * as main from "./main.js";
 
-let farmDescriptions = [];
-let churchDescriptions = [];
-let mineDescriptions = [];
+export let farmDescriptions = [];
+export let churchDescriptions = [];
+export let mineDescriptions = [];
 
 window.onload = ()=>{
 	console.log("window.onload called");
@@ -17,9 +17,9 @@ window.onload = ()=>{
 		churchDescriptions = json.Church;
 		mineDescriptions = json.Mine;
 
-		console.log(farmDescriptions);
-		console.log(churchDescriptions);
-		console.log(mineDescriptions);
+		document.querySelector("#farm-button").title = farmDescriptions[0];
+		document.querySelector("#church-button").title = churchDescriptions[0];
+		document.querySelector("#mine-button").title = mineDescriptions[0];
 		main.init();
 	};
 	xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);
