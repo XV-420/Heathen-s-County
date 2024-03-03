@@ -50,8 +50,9 @@ class Building {
   }
 
   //increases amount by one
-  Buy() {
-    this.amount++;
+  Buy(church = false) {
+    if(!church)
+      this.amount++;
     this.price.faith *= this.priceScaler;
     this.price.food *= this.priceScaler;
     this.price.money *= this.priceScaler;
@@ -99,7 +100,8 @@ class Church extends Building {
   }
 
   Buy() {
-    //haha this does nothing
+    super.Buy(true);
+
   }
 }
 
