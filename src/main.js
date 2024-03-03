@@ -28,16 +28,25 @@ const init = () => {
   let moneyOutput = document.querySelector('#money');
   let cultdisplay = document.querySelector('#mainroom');
   let Shopdisplay = document.querySelector('#testroom');
-  let shopTab = document.querySelector('#test-tab');
+  let shopTab = document.querySelector('#shop-tab');
   let culttab = document.querySelector('#cult-tab');
   let GifRunning = false;
   let imgheart = document.querySelector('.hvr-pulse-grow');
   //for now buttons update here
-  const onclickScore = () => {
+  const onclickGather = () => {
     // score++;
     // scoreOutput.innerHTML = score;
-    cultistManager.AddCultist();
-    scoreOutput.innerHTML = cultistManager.amount;
+    let chance = Math.random(0, 1) * 100;
+    if (chance < 48) {
+      money.amount += 10;
+      moneyOutput.innerHTML = money.amount;
+    } else if (chance < 96) {
+      food.amount += 10;
+      //foodOutputt.innerHTML = food.amount;
+    } else {
+      cultistManager.AddCultist();
+      scoreOutput.innerHTML = cultistManager.amount;
+    }
   };
 
   const onclickFaith = () => {
@@ -77,6 +86,7 @@ const init = () => {
 
     prayButton.update();
     buildingManager.Update();
+    cultistManager.Update();
 
     faithOutput.innerHTML = Math.round(faith.amount);
     scoreOutput.innerHTML = cultistManager.amount;
@@ -104,12 +114,12 @@ const init = () => {
   };
 
   const recruitButton = new Button(
-    document.querySelector('#recruit-button'),
-    1,
-    onclickScore
+    document.querySelector('#gather-button'),
+    10,
+    onclickGather
   );
   const sacrificeButton = new Button(
-    document.querySelector('#faith-button'),
+    document.querySelector('#sacrifice-button'),
     5,
     onclickFaith
   );

@@ -71,6 +71,7 @@ class CultistManager extends Resource {
         this.food = food;
         this.money = money;
         this.cultists = [];
+        this.cultistFoodDrain = 1/60;
     }
 
     //add a cultist to the array
@@ -91,8 +92,33 @@ class CultistManager extends Resource {
             this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists; 
     }
 
+    //Update
+    Update(){
+        this.FeedCultists();
+    }
+
+    //lowers food and kills cultist if food is too low
+    FeedCultists(){
+        if(BUILDINGS.Church.level < 3)
+            return;
+        this.food.amount -= this.amount * this.cultistFoodDrain;
+        
+        if(this.food.amount <= 0){
+            this.food.amount = 0;
+            
+            //remove cultist and feed
+            this.KillCultist(Math.floor(Math.random() * this.cultists.length));
+            this.AddFood(1);
+        }
+    }
+
+    //based on farm
     GrowFood(num){
         this.food.amount += BUILDINGS.Farm.assignedCultists * num;
+    }
+
+    AddFood(num){
+        this.food.amount +=  num;
     }
 
     GrowMoney(num){
@@ -119,10 +145,36 @@ class CultistManager extends Resource {
             let randNum = Math.floor(Math.random() * this.cultists.length);
 
             this.faith.amount += this.cultists[randNum].faithOnDeath;
+            this.KillCultist(randNum); //kill a cultist
+        }
+    }
+
+    //goes down the buildings and removes cultists in a priority order
+    //calls #killCultistInBuilding
+    KillCultist(randNum){
+        if(this.cultists.length > 0){
+            //priority remove in order of buildings
+            //returns if kill is successful
+            if(this.#KillCultistInBuilding(BUILDINGS.Hut, randNum))
+                return;
+            if(this.#KillCultistInBuilding(BUILDINGS.Church, randNum))
+                return;
+            if(this.#KillCultistInBuilding(BUILDINGS.Mine, randNum))
+                return;
+            if(this.#KillCultistInBuilding(BUILDINGS.Farm, randNum))
+                return;
+        }
+    }
+
+    //kills a cultist from a building if possible
+    #KillCultistInBuilding(building, randNum){
+        if(building.assignedCultists > 0){
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
-            BUILDINGS.Hut.RemoveCultist();
+            building.RemoveCultist();
+            return true;
         }
+        return false;
     }
 
 
