@@ -182,3 +182,13 @@ button:hover span {
 .amounts {
   margin-left: 10px;
 }
+.tab active {
+  background-color: white;
+}
+.tab-activated {
+  background-color: white;
+  font-size: 20px;
+  font-weight: bold;
+  width: fit-content;
+  padding: 10px 14px 10px 14px;
+}

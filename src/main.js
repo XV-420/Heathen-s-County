@@ -28,7 +28,7 @@ const init = () => {
   let moneyOutput = document.querySelector('#money');
   let cultdisplay = document.querySelector('#mainroom');
   let Shopdisplay = document.querySelector('#testroom');
-  let shopTab = document.querySelector('#test-tab');
+  let shopTab = document.querySelector('#shop-tab');
   let culttab = document.querySelector('#cult-tab');
   let GifRunning = false;
   let imgheart = document.querySelector('.hvr-pulse-grow');

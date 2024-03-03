@@ -98,7 +98,7 @@ class Church extends Building {
     super.Upgrade();
   }
 
-  Buy(){
+  Buy() {
     //haha this does nothing
   }
 }
@@ -146,21 +146,21 @@ class Hut extends Building {
 class Farm extends Building {
   constructor(maxCount, names) {
     super(maxCount, names);
-    this.foodProductionPerCultist = .5;
+    this.foodProductionPerCultist = 0.1;
   }
 
   Update(cultistManager) {
     super.Update();
     cultistManager.GrowFood(this.foodProductionPerCultist);
   }
-  Buy(){
+  Buy() {
     super.Buy();
-    this.foodProductionPerCultist *=2;
+    this.foodProductionPerCultist *= 2;
   }
   //overide to change cost
   Upgrade() {
     super.Upgrade();
-    this.foodProductionPerCultist += .1;
+    this.foodProductionPerCultist += 0.1;
   }
 }
 
@@ -239,8 +239,8 @@ class BuildingManager {
     //setup price of the buildings
     BUILDINGS.Church.SetPrice(10, 0, 0);
     BUILDINGS.Hut.SetPrice(0, 10, 10);
-    BUILDINGS.Farm.SetPrice(100, 100, 100);
-    BUILDINGS.Mine.SetPrice(100, 100, 100);
+    BUILDINGS.Farm.SetPrice(0, 100, 100);
+    BUILDINGS.Mine.SetPrice(0, 100, 100);
 
     //setupUI
     this.SetupUI();
@@ -393,6 +393,7 @@ class BuildingManager {
     this.CheckLevels();
     this.CheckBuy();
     this.CheckCultistAmounts();
+    this.CheckHidden();
   }
 
   //checks the cultists assigned to each building and enables/disables relative buttons
@@ -445,27 +446,67 @@ class BuildingManager {
   //for now ima update every frame
   CheckBuy() {
     //church
+    let shophighlight = false;
     if (BUILDINGS.Church.CheckPrice(this.faith, this.food, this.money))
       this.churchButton.Disable();
-    else this.churchButton.Enable();
+    else {
+      this.churchButton.Enable();
+
+      shophighlight = true;
+    }
 
     //hut
     if (BUILDINGS.Hut.CheckPrice(this.faith, this.food, this.money))
       this.hutButton.Disable();
-    else this.hutButton.Enable();
+    else {
+      this.hutButton.Enable();
+      if (document.querySelector('#hut-button').className != 'hide') {
+        shophighlight = true;
+      }
+    }
 
     //farm
     if (BUILDINGS.Farm.CheckPrice(this.faith, this.food, this.money))
       this.farmButton.Disable();
-    else this.farmButton.Enable();
+    else {
+      this.farmButton.Enable();
+      if (document.querySelector('#farm-button').className != 'hide') {
+        shophighlight = true;
+      }
+      //shophighlight = true;
+    }
 
     //mine
     if (BUILDINGS.Mine.CheckPrice(this.faith, this.food, this.money))
       this.mineButton.Disable();
-    else this.mineButton.Enable();
+    else {
+      this.mineButton.Enable();
+      if (document.querySelector('#mine-button').className != 'hide') {
+        shophighlight = true;
+      }
+      //shophighlight = true;
+    }
+    //church price
+    document.querySelector(
+      '#church-price'
+    ).textContent = `Faith:${BUILDINGS.Church.price.faith}`;
+    //hut price
+    document.querySelector(
+      '#hut-price'
+    ).textContent = `Food:${BUILDINGS.Hut.price.food} Money:${BUILDINGS.Hut.price.money}`;
+    //farmn price
     document.querySelector(
       '#farm-price'
     ).textContent = `Food:${BUILDINGS.Farm.price.food} Money:${BUILDINGS.Farm.price.money}`;
+    //mine price
+    document.querySelector(
+      '#mine-price'
+    ).textContent = `Food:${BUILDINGS.Mine.price.food} Money:${BUILDINGS.Mine.price.money}`;
+    if (shophighlight == true) {
+      document.querySelector('#shop-tab').className = 'tab-activated';
+    } else {
+      document.querySelector('#shop-tab').className = 'tab';
+    }
   }
 
   //Should maybe be refactored into something that can get the level of any building
@@ -483,14 +524,31 @@ class BuildingManager {
       document.querySelector('#cultistnumber').className = '';
     }
 
-    if (BUILDINGS.Farm.level > 0 && BUILDINGS.Hut.amount != 0) {
+    if (BUILDINGS.Farm.amount > 0 && BUILDINGS.Hut.amount != 0) {
       document.querySelector('#Farms').className = '';
       document.querySelector('#cultistnumber').className = '';
     }
 
-    if (BUILDINGS.Mine.level > 0 && BUILDINGS.Hut.amount != 0) {
+    if (BUILDINGS.Mine.amount > 0 && BUILDINGS.Hut.amount != 0) {
       document.querySelector('#Mines').className = '';
       document.querySelector('#cultistnumber').className = '';
+    }
+  }
+  CheckHidden() {
+    let churchlvl = this.CheckChurchLevel();
+    if (churchlvl > 0) {
+      document.querySelector('#gather-button').className = 'button hvr-push';
+      document.querySelector('#hut-button').className = 'button';
+      document.querySelector('#hut-container').className = '';
+    }
+    if (churchlvl > 3) {
+      document.querySelector('#sacrifice-button').className = 'button hvr-push';
+    }
+    if (BUILDINGS.Hut.amount > 0) {
+      document.querySelector('#mine-button').className = 'button';
+      document.querySelector('#farm-button').className = 'button';
+      document.querySelector('#farm-container').className = '';
+      document.querySelector('#mine-container').className = '';
     }
   }
 }
