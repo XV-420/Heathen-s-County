@@ -1,23 +1,25 @@
 import * as main from "./main.js";
 
-let names = [];
-let occupations = [];
+export let farmDescriptions = [];
+export let churchDescriptions = [];
+export let mineDescriptions = [];
 
 window.onload = ()=>{
 	console.log("window.onload called");
-    //old 330 loader code
-	const url = "assets/people.json";
+	const url = "assets/descriptions.json";
 	const xhr = new XMLHttpRequest();
 	xhr.onload = (e) =>{
 		console.log(`In onload - HTTP Status Code = ${e.target.status}`);
 		const string = e.target.responseText;
 		const json = JSON.parse(string);
 
-		names = json.name;
-		occupations = json.occupation;
+		farmDescriptions = json.Farm;
+		churchDescriptions = json.Church;
+		mineDescriptions = json.Mine;
 
-		console.log(names);
-		console.log(occupations);
+		document.querySelector("#farm-button").title = farmDescriptions[0];
+		document.querySelector("#church-button").title = churchDescriptions[0];
+		document.querySelector("#mine-button").title = mineDescriptions[0];
 		main.init();
 	};
 	xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`);

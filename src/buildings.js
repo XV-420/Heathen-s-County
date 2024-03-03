@@ -1,5 +1,6 @@
 import { Button } from './button.js';
 import { getRandom } from './utils.js';
+import { farmDescriptions, churchDescriptions, mineDescriptions } from './loader.js';
 
 //price struct
 //pattern is to edit this before each new building gets created
@@ -250,22 +251,26 @@ class BuildingManager {
   //setup onclick to buy, then to upgrade if not hidden
 
   SetupUI() {
+    //tracks current church level for description changing
+    let churchLevel = 0;
+
     //church button
-    this.churchButton = this.CreateBuyAndUpgradeButtonCustom(
-      BUILDINGS.Church,
-      'church',
-      () => {
-        //added  hut here for the name changing over time
-        BUILDINGS.Hut.Upgrade();
-        this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
-        BUILDINGS.Farm.Upgrade();
-        this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
-        BUILDINGS.Mine.Upgrade();
-        this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
-        BUILDINGS.Church.Upgrade();
-        this.churchButton.ChangeName(BUILDINGS.Church.currentName);
-      }
-    );
+    this.churchButton = this.CreateBuyAndUpgradeButtonCustom(BUILDINGS.Church, 'church', () => {
+      //upgrades church description tier
+      churchLevel++;
+      //added  hut here for the name changing over time
+      BUILDINGS.Hut.Upgrade();
+      this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
+      BUILDINGS.Farm.Upgrade();
+      this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
+      document.querySelector("#farm-button").title = farmDescriptions[churchLevel];
+      BUILDINGS.Mine.Upgrade();
+      this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
+      document.querySelector("#mine-button").title = mineDescriptions[churchLevel];
+      BUILDINGS.Church.Upgrade();
+      this.churchButton.ChangeName(BUILDINGS.Church.currentName);
+      document.querySelector("#church-button").title = churchDescriptions[churchLevel];
+    });
     this.churchButton.ChangeName(BUILDINGS.Church.currentName);
     this.churchPlusButton = this.CreatePlusButton('church', BUILDINGS.Church);
     this.churchMinusButton = this.CreateMinusButton('church', BUILDINGS.Church);
