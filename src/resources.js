@@ -1,12 +1,15 @@
 import * as cultist from "./cultist.js"
-import {BUILDINGS} from "./buildings.js"
+import { BUILDINGS } from "./buildings.js"
 
 class Resource {
 
     constructor(name, amount) {
         this.name = name; //the name of the resource
         this.amount = amount; //how much of the resource the player currently has
+        this.amountPerSec = 0;
     }
+
+
 
 }
 //Gonna condense this later
@@ -22,7 +25,7 @@ class Faith extends Resource {
     }
 
     //opposite of grow
-    erode(multiplier = this.multiplier){
+    erode(multiplier = this.multiplier) {
         this.amount = this.amount - (1 * multiplier);
     }
 }
@@ -38,7 +41,7 @@ class Money extends Resource {
     }
 
     //opposite of grow
-    erode(multiplier = this.multiplier){
+    erode(multiplier = this.multiplier) {
         this.amount = this.amount - (1 * multiplier);
     }
 }
@@ -54,7 +57,7 @@ class Food extends Resource {
     }
 
     //opposite of grow
-    erode(multiplier = this.multiplier){
+    erode(multiplier = this.multiplier) {
         this.amount = this.amount - (1 * multiplier);
     }
 }
@@ -63,7 +66,7 @@ class Food extends Resource {
 
 
 class CultistManager extends Resource {
-    
+
     constructor(name, faith, food, money) {
         super(name);
         this.amount = 0;
@@ -83,30 +86,36 @@ class CultistManager extends Resource {
     }
 
     //Increase faith by the specified passive amount for each cultist
-    GrowFaith(){
+    GrowFaith() {
         /*this.cultists.forEach(cultist => {
             this.faith.amount += cultist.passiveFaithGeneration;
         });*/
 
-        if(this.cultists.length > 0)
+        if (this.cultists.length > 0) {
             //just use the passive faith generation of the first cultist in the array for now
-            this.faith.amount += this.cultistFaithProduction * BUILDINGS.Church.assignedCultists; 
+            let number = this.cultistFaithProduction * BUILDINGS.Church.assignedCultists;
+            this.faith.amount += number;
+            this.faith.amountPerSec += number;
+        }
+
     }
 
     //Update
-    Update(){
+    Update() {
         this.FeedCultists();
     }
 
     //lowers food and kills cultist if food is too low
-    FeedCultists(){
-        if(BUILDINGS.Church.level < 3)
+    FeedCultists() {
+        if (BUILDINGS.Church.level < 3)
             return;
-        this.food.amount -= this.amount * this.cultistFoodDrain;
-        
-        if(this.food.amount <= 0){
+            let num = this.amount * this.cultistFoodDrain;
+            this.food.amount -= num;
+            this.food.amountPerSec -= num;
+
+        if (this.food.amount <= 0) {
             this.food.amount = 0;
-            
+
             //remove cultist and feed
             this.KillCultist(Math.floor(Math.random() * this.cultists.length));
             this.AddFood(1);
@@ -114,28 +123,32 @@ class CultistManager extends Resource {
     }
 
     //based on farm
-    GrowFood(num){
-        this.food.amount += BUILDINGS.Farm.assignedCultists * num;
+    GrowFood(num) {
+        let tmp = BUILDINGS.Farm.assignedCultists * num;
+        this.food.amount += tmp;
+        this.food.amountPerSec += tmp;
     }
 
-    AddFood(num){
-        this.food.amount +=  num;
+    AddFood(num= 1) {
+        this.food.amount += num;
     }
 
-    GrowMoney(num){
-        this.money.amount += BUILDINGS.Mine.assignedCultists * num;
+    GrowMoney(num) {
+        let tmp = BUILDINGS.Mine.assignedCultists * num;
+        this.money.amount +=tmp;
+        this.money.amountPerSec += tmp;
     }
 
     //increase fath by one 
-    AddFaith(){
-        this.faith.amount+=1;
+    AddFaith(num = 1) {
+        this.faith.amount += num;
     }
     //for each cultist, increase passive faith gain
     // * 2 for now on upgrade
-    UpgradeCultists(){
+    UpgradeCultists() {
         this.cultists.forEach(cultist => {
             cultist.passiveFaithGeneration *= 2;
-            cultist.faithOnDeath *=2
+            cultist.faithOnDeath *= 2
         });
     }
 
@@ -152,24 +165,24 @@ class CultistManager extends Resource {
 
     //goes down the buildings and removes cultists in a priority order
     //calls #killCultistInBuilding
-    KillCultist(randNum){
-        if(this.cultists.length > 0){
+    KillCultist(randNum) {
+        if (this.cultists.length > 0) {
             //priority remove in order of buildings
             //returns if kill is successful
-            if(this.#KillCultistInBuilding(BUILDINGS.Hut, randNum))
+            if (this.#KillCultistInBuilding(BUILDINGS.Hut, randNum))
                 return;
-            if(this.#KillCultistInBuilding(BUILDINGS.Church, randNum))
+            if (this.#KillCultistInBuilding(BUILDINGS.Church, randNum))
                 return;
-            if(this.#KillCultistInBuilding(BUILDINGS.Mine, randNum))
+            if (this.#KillCultistInBuilding(BUILDINGS.Mine, randNum))
                 return;
-            if(this.#KillCultistInBuilding(BUILDINGS.Farm, randNum))
+            if (this.#KillCultistInBuilding(BUILDINGS.Farm, randNum))
                 return;
         }
     }
 
     //kills a cultist from a building if possible
-    #KillCultistInBuilding(building, randNum){
-        if(building.assignedCultists > 0){
+    #KillCultistInBuilding(building, randNum) {
+        if (building.assignedCultists > 0) {
             this.cultists.splice(randNum, 1);
             this.amount = this.cultists.length; //update amount
             building.RemoveCultist();
@@ -188,27 +201,25 @@ class CultistManager extends Resource {
 
     //removes a cultist to the building
     //adds one from the church
-    onClickMinusBuilding(building){
+    onClickMinusBuilding(building) {
         building.RemoveCultist();
         BUILDINGS.Hut.AssignCultist();
     }
 
     //adds a cultist to the building
     //removes one from the church
-    onClickPlusBuilding(building){
+    onClickPlusBuilding(building) {
         building.AssignCultist();
         BUILDINGS.Hut.RemoveCultist();
     }
 
     //adds one cultist to the church, removes one from a random building
-    onHutPlusClick(){
+    onHutPlusClick() {
         //pick a building and remove a cultist from it
         //will do first availiable for efficiency
         for (let key of Object.keys(BUILDINGS)) {
-            if(key != "Hut")
-            {
-                if(BUILDINGS[key].assignedCultists > 0)
-                {
+            if (key != "Hut") {
+                if (BUILDINGS[key].assignedCultists > 0) {
                     this.onClickMinusBuilding(BUILDINGS[key]);
                     return;
                 }
@@ -217,4 +228,4 @@ class CultistManager extends Resource {
     }
 }
 
-export { Resource, Faith, Money,Food, CultistManager };
+export { Resource, Faith, Money, Food, CultistManager };

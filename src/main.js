@@ -26,6 +26,9 @@ const init = () => {
   let faithOutput = document.querySelector('#faith');
   let foodOutput = document.querySelector('#food');
   let moneyOutput = document.querySelector('#money');
+  let faithPerSecOutput = document.querySelector('#faith-per-sec');
+  let foodPerSecOutput = document.querySelector('#food-per-sec');
+  let moneyPerSecOutput = document.querySelector('#money-per-sec');
   let cultdisplay = document.querySelector('#mainroom');
   let Shopdisplay = document.querySelector('#testroom');
   let shopTab = document.querySelector('#shop-tab');
@@ -41,14 +44,14 @@ const init = () => {
     } else if (chance < 96) {
       food.amount += 10;
       //foodOutputt.innerHTML = food.amount;
-    } else if(buildingManager.CheckHutOccupancy() < cultistManager.amount){
+    } else if (buildingManager.CheckHutOccupancy() < cultistManager.amount) {
       cultistManager.AddCultist();
       cultistOutput.innerHTML = cultistManager.amount;
     }
-    else{
-      money.amount+=5;
+    else {
+      money.amount += 5;
       moneyOutput.innerHTML = money.amount;
-      food.amount+=5;
+      food.amount += 5;
     }
   };
 
@@ -73,7 +76,7 @@ const init = () => {
   const loop = () => {
     setTimeout(loop, 1000 / 60);
     let time = Date.now();
-    time = time/1000;
+    time = time / 1000;
     elapsedTime += time - prevTime;
     prevTime = time;
     //TODO: move this out of main when refactoring
@@ -95,11 +98,19 @@ const init = () => {
     prayButton.update();
     buildingManager.UIUpdate();
 
-    if(elapsedTime > 1)
-    {
+    if (elapsedTime > 1) {
       elapsedTime = 0;
       buildingManager.Update();
       cultistManager.Update();
+      //update the amount per sec
+      faithPerSecOutput.innerHTML = `Faith Per Second: ${faith.amountPerSec}`;
+      moneyPerSecOutput.innerHTML = `Money Per Second: ${money.amountPerSec}`;
+      foodPerSecOutput.innerHTML = `Food Per Second: ${food.amountPerSec}`;
+
+      //set amount per sec to zero
+      faith.amountPerSec = 0;
+      money.amountPerSec = 0;
+      food.amountPerSec = 0;
     }
 
     faithOutput.innerHTML = Math.round(faith.amount);
@@ -117,6 +128,7 @@ const init = () => {
       } else {
       }
     }
+
   };
   const onclickCult = () => {
     cultdisplay.style.display = 'block';
