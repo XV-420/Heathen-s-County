@@ -71,12 +71,13 @@ class CultistManager extends Resource {
         this.food = food;
         this.money = money;
         this.cultists = [];
-        this.cultistFoodDrain = 1/60;
+        this.cultistFoodDrain = .25;
+        this.cultistFaithProduction = .5;
     }
 
     //add a cultist to the array
     AddCultist() {
-        this.cultists.push(new cultist.Cultist(.01, 10, 0, 50, 50));
+        this.cultists.push(new cultist.Cultist(10, 0, 50, 50));
         this.amount = this.cultists.length; //update amount
         BUILDINGS.Hut.AssignCultist();
     }
@@ -89,7 +90,7 @@ class CultistManager extends Resource {
 
         if(this.cultists.length > 0)
             //just use the passive faith generation of the first cultist in the array for now
-            this.faith.amount += this.cultists[0].passiveFaithGeneration * BUILDINGS.Church.assignedCultists; 
+            this.faith.amount += this.cultistFaithProduction * BUILDINGS.Church.assignedCultists; 
     }
 
     //Update

@@ -22,7 +22,7 @@ const buildingManager = new buildings.BuildingManager(
 );
 
 const init = () => {
-  let scoreOutput = document.querySelector('#cultists');
+  let cultistOutput = document.querySelector('#cultists');
   let faithOutput = document.querySelector('#faith');
   let foodOutput = document.querySelector('#food');
   let moneyOutput = document.querySelector('#money');
@@ -34,8 +34,6 @@ const init = () => {
   let imgheart = document.querySelector('.hvr-pulse-grow');
   //for now buttons update here
   const onclickGather = () => {
-    // score++;
-    // scoreOutput.innerHTML = score;
     let chance = Math.random(0, 1) * 100;
     if (chance < 48) {
       money.amount += 10;
@@ -43,9 +41,14 @@ const init = () => {
     } else if (chance < 96) {
       food.amount += 10;
       //foodOutputt.innerHTML = food.amount;
-    } else {
+    } else if(buildingManager.CheckHutOccupancy() < cultistManager.amount){
       cultistManager.AddCultist();
-      scoreOutput.innerHTML = cultistManager.amount;
+      cultistOutput.innerHTML = cultistManager.amount;
+    }
+    else{
+      money.amount+=5;
+      moneyOutput.innerHTML = money.amount;
+      food.amount+=5;
     }
   };
 
@@ -64,9 +67,15 @@ const init = () => {
     faith.amount++;
   };
 
+
+  let elapsedTime = 0;
+  let prevTime = 0;
   const loop = () => {
     setTimeout(loop, 1000 / 60);
-
+    let time = Date.now();
+    time = time/1000;
+    elapsedTime += time - prevTime;
+    prevTime = time;
     //TODO: move this out of main when refactoring
     //Unlock Recruit when church is level 1 or higher
     if (buildingManager.CheckChurchLevel() >= 1) {
@@ -83,13 +92,18 @@ const init = () => {
     } else {
       sacrificeButton.Disable();
     }
-
     prayButton.update();
-    buildingManager.Update();
-    cultistManager.Update();
+    buildingManager.UIUpdate();
+
+    if(elapsedTime > 1)
+    {
+      elapsedTime = 0;
+      buildingManager.Update();
+      cultistManager.Update();
+    }
 
     faithOutput.innerHTML = Math.round(faith.amount);
-    scoreOutput.innerHTML = cultistManager.amount;
+    cultistOutput.innerHTML = `${cultistManager.amount}/${buildingManager.CheckHutOccupancy()}`;
     foodOutput.innerHTML = Math.round(food.amount);
     moneyOutput.innerHTML = Math.round(money.amount);
 

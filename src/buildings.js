@@ -50,8 +50,9 @@ class Building {
   }
 
   //increases amount by one
-  Buy() {
-    this.amount++;
+  Buy(church = false) {
+    if(!church)
+      this.amount++;
     this.price.faith *= this.priceScaler;
     this.price.food *= this.priceScaler;
     this.price.money *= this.priceScaler;
@@ -99,7 +100,8 @@ class Church extends Building {
   }
 
   Buy() {
-    //haha this does nothing
+    super.Buy(true);
+
   }
 }
 
@@ -110,6 +112,7 @@ class Hut extends Building {
   }
   Update(cultistManager) {
     super.Update();
+    console.log(this.amount);
     this.occupency = this.amount * 4;
     if (
       this.occupency != cultistManager.amount &&
@@ -117,7 +120,7 @@ class Hut extends Building {
       this.occupency != 0
     ) {
       //so this doesn't immediatley fill up we can make an upgrade later to improve probabibility
-      let rand = getRandom(1, 10000);
+      let rand = getRandom(1, 500);
       if (rand < 50) {
         rand = getRandom(0, 10);
         let numpeople = 1;
@@ -172,19 +175,22 @@ class TradingPost extends Building {
 class Mine extends Building {
   constructor(maxCount, names) {
     super(maxCount, names);
-    this.moneyProductionPerCultist = 0.01;
+    this.moneyProductionPerCultist = 0.5;
   }
 
   Update(cultistManager) {
     super.Update();
-    cultistManager.GrowMoney(
-      this.moneyProductionPerCultist * this.amount * this.level
-    );
+    cultistManager.GrowMoney(this.moneyProductionPerCultist);
   }
 
+  Buy(){
+    super.Buy();
+    this.moneyProductionPerCultist *=2;
+  }
   //overide to change cost
   Upgrade() {
     super.Upgrade();
+    this.moneyProductionPerCultist += .1;
   }
 }
 
@@ -373,7 +379,6 @@ class BuildingManager {
     //check level of each building and update values based on their level
     //church
     BUILDINGS.Church.Update(this.cultistManager);
-    //tradingpost
 
     //huts
     BUILDINGS.Hut.Update(this.cultistManager);
@@ -383,7 +388,6 @@ class BuildingManager {
 
     //mines
     BUILDINGS.Mine.Update(this.cultistManager);
-    this.UIUpdate();
   }
 
   //updates all the buttons
@@ -510,6 +514,10 @@ class BuildingManager {
   //Should maybe be refactored into something that can get the level of any building
   CheckChurchLevel() {
     return BUILDINGS.Church.level;
+  }
+
+  CheckHutOccupancy(){
+    return BUILDINGS.Hut.occupency;
   }
 
   CheckLevels() {
