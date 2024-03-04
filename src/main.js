@@ -21,6 +21,8 @@ const buildingManager = new buildings.BuildingManager(
   food
 );
 
+
+
 const init = () => {
   let cultistOutput = document.querySelector('#cultists');
   let faithOutput = document.querySelector('#faith');
@@ -29,6 +31,7 @@ const init = () => {
   let faithPerSecOutput = document.querySelector('#faith-per-sec');
   let foodPerSecOutput = document.querySelector('#food-per-sec');
   let moneyPerSecOutput = document.querySelector('#money-per-sec');
+  let cultistPerSecOutput = document.querySelector('#cultist-per-sec');
   let cultdisplay = document.querySelector('#mainroom');
   let Shopdisplay = document.querySelector('#testroom');
   let shopTab = document.querySelector('#shop-tab');
@@ -40,17 +43,14 @@ const init = () => {
     let chance = Math.random(0, 1) * 100;
     if (chance < 48) {
       money.amount += 10;
-      moneyOutput.innerHTML = money.amount;
     } else if (chance < 96) {
       food.amount += 10;
       //foodOutputt.innerHTML = food.amount;
     } else if (buildingManager.CheckHutOccupancy() < cultistManager.amount) {
       cultistManager.AddCultist();
-      cultistOutput.innerHTML = cultistManager.amount;
     }
     else {
       money.amount += 5;
-      moneyOutput.innerHTML = money.amount;
       food.amount += 5;
     }
   };
@@ -70,6 +70,25 @@ const init = () => {
     faith.amount++;
   };
 
+
+  //just sets the title of the resource
+  const setUpHoverResource = () => {
+    //update the amount per sec
+    faithPerSecOutput.title = `Faith is a measure of your devotion to the god. 
+          Faith can be used in upgrades and purchasing buildings. 
+          Faith Per Second: ${faith.amountPerSec}`;
+    cultistPerSecOutput.title = `Cultists are the main driver of your devotion, they can be assigned to buildings to produce resources for your cause.`
+    moneyPerSecOutput.title = `Money is used to pay for buildings and other upgrades. 
+          Money Per Second: ${money.amountPerSec}`;
+    foodPerSecOutput.title = `Food is used to to buy buildinds and also makes sure your followers stay fed and happy. 
+          Run out of food and people will starve. 
+          Food Per Second: ${food.amountPerSec}`;
+
+    //set amount per sec to zero
+    faith.amountPerSec = 0;
+    money.amountPerSec = 0;
+    food.amountPerSec = 0;
+  }
 
   let elapsedTime = 0;
   let prevTime = 0;
@@ -102,15 +121,8 @@ const init = () => {
       elapsedTime = 0;
       buildingManager.Update();
       cultistManager.Update();
-      //update the amount per sec
-      faithPerSecOutput.title = `Faith Per Second: ${faith.amountPerSec}`;
-      moneyPerSecOutput.title = `Money Per Second: ${money.amountPerSec}`;
-      foodPerSecOutput.title = `Food Per Second: ${food.amountPerSec}`;
+      setUpHoverResource();
 
-      //set amount per sec to zero
-      faith.amountPerSec = 0;
-      money.amountPerSec = 0;
-      food.amountPerSec = 0;
     }
 
     faithOutput.innerHTML = Math.round(faith.amount);
@@ -161,5 +173,8 @@ const init = () => {
 
   canvas.init();
 };
+
+
+
 
 export { init };
