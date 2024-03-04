@@ -103,9 +103,9 @@ const init = () => {
       buildingManager.Update();
       cultistManager.Update();
       //update the amount per sec
-      faithPerSecOutput.innerHTML = `Faith Per Second: ${faith.amountPerSec}`;
-      moneyPerSecOutput.innerHTML = `Money Per Second: ${money.amountPerSec}`;
-      foodPerSecOutput.innerHTML = `Food Per Second: ${food.amountPerSec}`;
+      faithPerSecOutput.title = `Faith Per Second: ${faith.amountPerSec}`;
+      moneyPerSecOutput.title = `Money Per Second: ${money.amountPerSec}`;
+      foodPerSecOutput.title = `Food Per Second: ${food.amountPerSec}`;
 
       //set amount per sec to zero
       faith.amountPerSec = 0;
