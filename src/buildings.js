@@ -25,7 +25,7 @@ class Building {
     this.maxLevel = 4;
     this.amount = 0;
     this.maxCount = _maxCount;
-    this.priceScaler = 20;
+    this.priceScaler = 5;
   }
 
   SetPrice(faith = 0, money = 0, food = 0, cultists = 0) {
