@@ -1,6 +1,6 @@
 import { Button } from './button.js';
 import { getRandom } from './utils.js';
-import { farmDescriptions, churchDescriptions, mineDescriptions } from './loader.js';
+import { farmDescriptions, churchDescriptions, mineDescriptions, hutDescriptions } from './loader.js';
 
 //price struct
 //pattern is to edit this before each new building gets created
@@ -263,6 +263,7 @@ class BuildingManager {
       //added  hut here for the name changing over time
       BUILDINGS.Hut.Upgrade();
       this.hutButton.ChangeName(BUILDINGS.Hut.currentName);
+      document.querySelector("#hut-button").title = hutDescriptions[churchLevel];
       BUILDINGS.Farm.Upgrade();
       this.farmButton.ChangeName(BUILDINGS.Farm.currentName);
       document.querySelector("#farm-button").title = farmDescriptions[churchLevel];

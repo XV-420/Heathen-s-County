@@ -14,5 +14,9 @@
                 "All for one and one for all. \nFurther increases Money generattion.",
                 "You do not need belongings; We will provide. \nGreatly increases Money generation.",
                 "Everything has a value. You are no exception. \nMassive Money generation."],
-        "Hut": [""]
+        "Hut": ["A small hut which can house your people. \nCan house 4 cultists.",
+                "It's where the heart is. \nCan house 8 cultists.",
+                "Rent is a small price to pay for protection. \nCan house 12 cultists.",
+                "They resemble holding pens. Their function is similar. \nCan hold 16 cultists.",
+                "It stores the Meat until it's useful. \nCan hold 20 cultists."]
 }
