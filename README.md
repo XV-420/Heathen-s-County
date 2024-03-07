@@ -10,5 +10,17 @@
   <li>Added Cultist</li>
   <li>Added Cultist Manager</li>
   <li> Made a page</li>
+  Shop reformatting
+Canvas recoloring
+Building bug fixes
+Building name changes implemented
+Farm and Mine upgrades implemented
+Began dictionary of description
+Mine implemented
+Farm implemented
+Hut implemented
+Shop populated with dummy upgrades
+Pray button implemented
+
 </ul>
 <h3>Bug Fixes</h3>
