@@ -146,10 +146,7 @@ class CultistManager extends Resource {
     //for each cultist, increase passive faith gain
     // * 2 for now on upgrade
     UpgradeCultists() {
-        this.cultists.forEach(cultist => {
-            cultist.passiveFaithGeneration *= 2;
-            cultist.faithOnDeath *= 2
-        });
+        this.cultistFaithProduction *= 2;
     }
 
     //randomly select one cultist from the array, remove them from the array, and increase faith by the specified on death amount

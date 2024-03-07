@@ -22,7 +22,7 @@ class Building {
     this.hidden = true; //make all the buildings up front, and hide the ones that
     this.names = _names;
     this.currentName = this.names[0];
-    this.maxLevel = 4;
+    this.maxLevel = 5;
     this.amount = 0;
     this.maxCount = _maxCount;
     this.priceScaler = 5;
@@ -95,8 +95,9 @@ class Church extends Building {
   }
 
   //overide to change cost
-  Upgrade() {
+  Upgrade(cultistManager) {
     super.Upgrade();
+    cultistManager.UpgradeCultists();
   }
 
   Buy() {
@@ -195,8 +196,9 @@ class Mine extends Building {
 }
 
 const BUILDINGS = {
-  Church: new Church(5, ['Shrine', 'Chapel', 'Church', 'Temple', 'Ziggurat']),
+  Church: new Church(5, ['Shrine','Shrine', 'Chapel', 'Church', 'Temple', 'Ziggurat']),
   Farm: new Farm(3, [
+    'Pen',
     'Pen',
     'Farmstead',
     'Farms',
@@ -212,12 +214,14 @@ const BUILDINGS = {
   ]),
   Hut: new Hut(3, [
     'Hut',
+    'Hut',
     'Home',
     'Apartments',
     'Super Habitation Complex',
     'Container',
   ]),
   Mine: new Mine(3, [
+    'Mine',
     'Mine',
     'Strip-Mine',
     'Bank',
@@ -254,7 +258,7 @@ class BuildingManager {
 
   SetupUI() {
     //tracks current church level for description changing
-    let churchLevel = 0;
+    let churchLevel = -1;
 
     //church button
     this.churchButton = this.CreateBuyAndUpgradeButtonCustom(BUILDINGS.Church, 'church', () => {
@@ -270,7 +274,7 @@ class BuildingManager {
       BUILDINGS.Mine.Upgrade();
       this.mineButton.ChangeName(BUILDINGS.Mine.currentName);
       document.querySelector("#mine-button").title = mineDescriptions[churchLevel];
-      BUILDINGS.Church.Upgrade();
+      BUILDINGS.Church.Upgrade(this.cultistManager);
       this.churchButton.ChangeName(BUILDINGS.Church.currentName);
       document.querySelector("#church-button").title = churchDescriptions[churchLevel];
     });
